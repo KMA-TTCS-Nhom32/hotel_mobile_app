@@ -375,16 +375,20 @@ class AppTheme {
 
   static TabBarTheme get _tabBarTheme {
     return TabBarTheme(
-      labelColor: AppColors.primaryLight,
+      labelColor: AppColors.primaryLight, // Keep this color
       unselectedLabelColor: AppColors.textSecondaryLight,
-      indicator: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: AppColors.primaryLight, width: 3),
-        ),
+      labelPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(color: AppColors.primaryLight, width: 3),
+        insets: const EdgeInsets.symmetric(horizontal: 16),
       ),
+      indicatorSize: TabBarIndicatorSize.tab,
       labelStyle: GoogleFonts.poppins(
         fontSize: 14,
         fontWeight: FontWeight.w600,
+        color:
+            AppColors
+                .onPrimaryLight, // This is white, so it will contrast with primaryLight
       ),
       unselectedLabelStyle: GoogleFonts.poppins(
         fontSize: 14,
@@ -395,16 +399,20 @@ class AppTheme {
 
   static TabBarTheme get _tabBarThemeDark {
     return TabBarTheme(
-      labelColor: AppColors.primaryDark,
+      labelColor: AppColors.primaryDark, // Keep this color
       unselectedLabelColor: AppColors.textSecondaryDark,
-      indicator: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: AppColors.primaryDark, width: 3),
-        ),
+      labelPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(color: AppColors.primaryDark, width: 3),
+        insets: const EdgeInsets.symmetric(horizontal: 16),
       ),
+      indicatorSize: TabBarIndicatorSize.tab,
       labelStyle: GoogleFonts.poppins(
         fontSize: 14,
         fontWeight: FontWeight.w600,
+        color:
+            AppColors
+                .onPrimaryDark, // This is white, so it will contrast with primaryDark
       ),
       unselectedLabelStyle: GoogleFonts.poppins(
         fontSize: 14,

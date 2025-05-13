@@ -2,14 +2,23 @@ import 'package:flutter/material.dart';
 import '../widgets/profile_header.dart';
 import '../widgets/account_menu_item.dart';
 
-class AccountPage extends StatelessWidget {
+class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // In a real app, this would come from user authentication state
-    final bool isLoggedIn = false;
+  State<AccountPage> createState() => _AccountPageState();
+}
 
+class _AccountPageState extends State<AccountPage> {
+  // Default language (Vietnamese)
+  String _currentLanguage =
+      'Tiếng Việt'; // This would come from a language provider in a real app
+
+  // In a real app, this would come from user authentication state
+  final bool _isLoggedIn = false;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Account'),
@@ -29,7 +38,7 @@ class AccountPage extends StatelessWidget {
           child: Column(
             children: [
               // Profile header
-              isLoggedIn
+              _isLoggedIn
                   ? const ProfileHeader(
                     name: 'John Doe',
                     email: 'john.doe@example.com',
@@ -48,7 +57,7 @@ class AccountPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (isLoggedIn) ...[
+                    if (_isLoggedIn) ...[
                       _buildAccountSection(context),
                       const Divider(),
                     ],
@@ -57,7 +66,7 @@ class AccountPage extends StatelessWidget {
                     _buildSupportSection(context),
                     const Divider(),
                     const SizedBox(height: 8),
-                    if (isLoggedIn)
+                    if (_isLoggedIn)
                       AccountMenuItem(
                         icon: Icons.logout,
                         title: 'Sign Out',
@@ -67,7 +76,7 @@ class AccountPage extends StatelessWidget {
                         showDivider: false,
                         iconColor: Colors.red,
                       ),
-                    if (!isLoggedIn)
+                    if (!_isLoggedIn)
                       AccountMenuItem(
                         icon: Icons.login,
                         title: 'Sign In',
@@ -188,31 +197,121 @@ class AccountPage extends StatelessWidget {
         AccountMenuItem(
           icon: Icons.language_outlined,
           title: 'Language',
-          subtitle: 'English',
+          subtitle: _currentLanguage,
           onTap: () {
-            // Navigate to language settings
-          },
-          showDivider: true,
-        ),
-        AccountMenuItem(
-          icon: Icons.attach_money,
-          title: 'Currency',
-          subtitle: 'USD',
-          onTap: () {
-            // Navigate to currency settings
-          },
-          showDivider: true,
-        ),
-        AccountMenuItem(
-          icon: Icons.notifications_outlined,
-          title: 'Notifications',
-          onTap: () {
-            // Navigate to notifications settings
+            _showLanguageSelectionDialog(context, _currentLanguage);
           },
           showDivider: false,
         ),
       ],
     );
+  }
+
+  // Show language selection dialog
+  void _showLanguageSelectionDialog(
+    BuildContext context,
+    String currentLanguage,
+  ) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Select Language',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 16),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Vietnamese option
+              RadioListTile<String>(
+                title: const Text('Tiếng Việt'),
+                value: 'Tiếng Việt',
+                groupValue: currentLanguage,
+                activeColor: Theme.of(context).colorScheme.primary,
+                onChanged: (value) {
+                  Navigator.pop(context, value);
+                },
+                selected: currentLanguage == 'Tiếng Việt',
+                secondary:
+                    currentLanguage == 'Tiếng Việt'
+                        ? Icon(
+                          Icons.check_circle,
+                          color: Theme.of(context).colorScheme.primary,
+                        )
+                        : null,
+              ),
+              // English option
+              RadioListTile<String>(
+                title: const Text('English'),
+                value: 'English',
+                groupValue: currentLanguage,
+                activeColor: Theme.of(context).colorScheme.primary,
+                onChanged: (value) {
+                  Navigator.pop(context, value);
+                },
+                selected: currentLanguage == 'English',
+                secondary:
+                    currentLanguage == 'English'
+                        ? Icon(
+                          Icons.check_circle,
+                          color: Theme.of(context).colorScheme.primary,
+                        )
+                        : null,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    ).then((selectedLanguage) {
+      if (selectedLanguage != null) {
+        // Update state with the new language
+        setState(() {
+          _currentLanguage = selectedLanguage;
+        });
+
+        // In a real app, this would update app's locale
+        // For example: context.read<LocaleProvider>().setLocale(selectedLanguage == 'English' ? Locale('en') : Locale('vi'))
+
+        // Dismiss any existing snackbars first
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+        // Show a brief confirmation with the new language
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Selected language: $selectedLanguage'),
+            duration: const Duration(milliseconds: 800),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        );
+      }
+    });
   }
 
   Widget _buildSupportSection(BuildContext context) {

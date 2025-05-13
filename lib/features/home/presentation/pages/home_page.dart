@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('LuxStay'),
+        title: const Text('AHomeVilla'),
         centerTitle: true,
         elevation: 0,
         actions: [
@@ -40,22 +40,25 @@ class HomePage extends StatelessWidget {
             physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Padding(
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Text(
                     'Welcome back, Guest!',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
-                QuickBookingSection(),
-                SizedBox(height: 16),
-                FeaturedHotelsCarousel(),
-                SizedBox(height: 24),
-                PopularDestinationsSection(),
-                SizedBox(height: 24),
-                SpecialOffersSection(),
-                SizedBox(height: 24),
+                const QuickBookingSection(),
+                const SizedBox(height: 16),
+                const FeaturedHotelsCarousel(),
+                const SizedBox(height: 24),
+                const PopularDestinationsSection(),
+                const SizedBox(height: 24),
+                const SpecialOffersSection(),
+                const SizedBox(height: 24),
               ],
             ),
           ),

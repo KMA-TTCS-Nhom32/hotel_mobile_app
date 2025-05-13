@@ -1,6 +1,5 @@
 import 'package:decimal/decimal.dart';
 import 'base_model.dart';
-import 'room_model.dart';
 import 'booking_model.dart';
 
 // Enums
@@ -101,7 +100,7 @@ class PromotionModel extends BaseModel {
       // Calculate percentage discount (e.g., 20% off)
       final percentageDecimal =
           Decimal.parse(discountValue.toString()) / Decimal.fromInt(100);
-      return originalPrice * percentageDecimal;
+      return originalPrice * Decimal.parse(percentageDecimal.toString());
     } else {
       // Fixed amount discount (e.g., $50 off)
       final discountAmount = Decimal.parse(discountValue.toString());

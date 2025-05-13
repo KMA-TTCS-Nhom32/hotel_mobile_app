@@ -69,6 +69,15 @@ class _MainNavigationView extends StatelessWidget {
             (index) =>
                 context.read<MainTabCubit>().setTab(MainTab.values[index]),
         type: BottomNavigationBarType.fixed,
+        elevation: 12,
+        selectedIconTheme: IconThemeData(
+          size: 28,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        unselectedIconTheme: IconThemeData(
+          size: 24,
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+        ),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),

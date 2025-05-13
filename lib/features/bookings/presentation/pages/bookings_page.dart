@@ -33,6 +33,21 @@ class _BookingsPageState extends State<BookingsPage>
         elevation: 0,
         bottom: TabBar(
           controller: _tabController,
+          labelColor: Colors.white, // White text for selected tab
+          unselectedLabelColor:
+              Theme.of(
+                context,
+              ).textTheme.bodyMedium?.color, // Default text color
+          indicator: BoxDecoration(
+            color:
+                Theme.of(
+                  context,
+                ).colorScheme.primary, // Background color for selected tab
+            borderRadius: BorderRadius.circular(20),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          labelPadding: const EdgeInsets.symmetric(horizontal: 12),
+          indicatorSize: TabBarIndicatorSize.tab,
           tabs: const [
             Tab(text: 'Upcoming'),
             Tab(text: 'Ongoing'),
