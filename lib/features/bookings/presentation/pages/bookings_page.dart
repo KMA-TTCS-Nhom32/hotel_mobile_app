@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/booking_card.dart';
 
 class BookingsPage extends StatefulWidget {
@@ -28,7 +29,7 @@ class _BookingsPageState extends State<BookingsPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Bookings'),
+        title: Text(AppLocalizations.of(context)!.bookingsTitle),
         centerTitle: true,
         elevation: 0,
         bottom: TabBar(
@@ -48,19 +49,29 @@ class _BookingsPageState extends State<BookingsPage>
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           labelPadding: const EdgeInsets.symmetric(horizontal: 12),
           indicatorSize: TabBarIndicatorSize.tab,
-          tabs: const [
-            Tab(text: 'Upcoming'),
-            Tab(text: 'Ongoing'),
-            Tab(text: 'Completed'),
+          tabs: [
+            Tab(text: AppLocalizations.of(context)!.bookingsUpcoming),
+            Tab(
+              text: AppLocalizations.of(context)!.bookingsCompleted,
+            ), // Changed from 'Ongoing'
+            Tab(
+              text: AppLocalizations.of(context)!.bookingsCancelled,
+            ), // Changed from 'Completed'
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
         children: [
-          _buildBookingList('upcoming'),
-          _buildBookingList('ongoing'),
-          _buildBookingList('completed'),
+          _buildBookingList(
+            AppLocalizations.of(context)!.bookingsUpcoming.toLowerCase(),
+          ),
+          _buildBookingList(
+            AppLocalizations.of(context)!.bookingsCompleted.toLowerCase(),
+          ),
+          _buildBookingList(
+            AppLocalizations.of(context)!.bookingsCancelled.toLowerCase(),
+          ),
         ],
       ),
     );
@@ -125,7 +136,7 @@ class _BookingsPageState extends State<BookingsPage>
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'No $type bookings found',
+                      AppLocalizations.of(context)!.bookingsNoBookings,
                       style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                     ),
                     const SizedBox(height: 24),
@@ -133,7 +144,7 @@ class _BookingsPageState extends State<BookingsPage>
                       onPressed: () {
                         // Navigate to hotel search
                       },
-                      child: const Text('Find Hotels'),
+                      child: Text(AppLocalizations.of(context)!.homeSearchHint),
                     ),
                   ],
                 ),

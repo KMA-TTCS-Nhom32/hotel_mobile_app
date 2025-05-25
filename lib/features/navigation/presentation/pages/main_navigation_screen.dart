@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../cubit/main_tab_cubit.dart';
 import '../../../home/presentation/pages/home_page.dart';
 import '../../../promotions/presentation/pages/promotions_page.dart';
@@ -53,6 +54,8 @@ class _MainNavigationView extends StatelessWidget {
   }
 
   Widget _buildBottomNavigationBar(BuildContext context, MainTab currentTab) {
+    final loc = AppLocalizations.of(context)!;
+
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
@@ -78,31 +81,31 @@ class _MainNavigationView extends StatelessWidget {
           size: 24,
           color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
         ),
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
-            label: 'Home',
+            icon: const Icon(Icons.home_outlined),
+            activeIcon: const Icon(Icons.home),
+            label: loc.navHome,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.local_offer_outlined),
-            activeIcon: Icon(Icons.local_offer),
-            label: 'Promotions',
+            icon: const Icon(Icons.local_offer_outlined),
+            activeIcon: const Icon(Icons.local_offer),
+            label: loc.navPromos,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book_outlined),
-            activeIcon: Icon(Icons.book),
-            label: 'Bookings',
+            icon: const Icon(Icons.book_outlined),
+            activeIcon: const Icon(Icons.book),
+            label: loc.navBookings,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.hotel_outlined),
-            activeIcon: Icon(Icons.hotel),
-            label: 'Offers',
+            icon: const Icon(Icons.hotel_outlined),
+            activeIcon: const Icon(Icons.hotel),
+            label: loc.navOffers,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            activeIcon: Icon(Icons.account_circle),
-            label: 'Account',
+            icon: const Icon(Icons.account_circle_outlined),
+            activeIcon: const Icon(Icons.account_circle),
+            label: loc.navAccount,
           ),
         ],
       ),

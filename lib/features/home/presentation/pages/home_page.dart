@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../core/theme/index.dart';
 import '../widgets/featured_hotels_carousel.dart';
 import '../widgets/popular_destinations_section.dart';
@@ -12,7 +13,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AHomeVilla'),
+        title: Text(AppLocalizations.of(context)!.appTitle),
         centerTitle: true,
         elevation: 0,
         actions: [
@@ -44,7 +45,9 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    'Welcome back, Guest!',
+                    AppLocalizations.of(
+                      context,
+                    )!.homeWelcome(AppLocalizations.of(context)!.guest),
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.primary,

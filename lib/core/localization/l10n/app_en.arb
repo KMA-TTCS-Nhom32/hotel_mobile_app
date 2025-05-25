@@ -1,0 +1,93 @@
+{
+  "@@locale": "en",
+  "appTitle": "Hotel Booking",
+  
+  "@@Navigation": "--------------------------------",
+  "navHome": "Home",
+  "navPromos": "Promotions",
+  "navBookings": "Bookings",
+  "navOffers": "Offers",
+  "navAccount": "Account",
+  
+  "@@Home Page": "--------------------------------",
+  "homeWelcome": "Welcome back, {userName}!",
+  "@homeWelcome": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  },
+  "homeSearchHint": "Where are you going?",
+  "homePopularDestinations": "Popular Destinations",
+  "homeTopRated": "Top Rated",
+  "homeRecentlyViewed": "Recently Viewed",
+  "homeViewAll": "View All",
+  
+  "@@Bookings Page": "--------------------------------",
+  "bookingsTitle": "My Bookings",
+  "bookingsUpcoming": "Upcoming",
+  "bookingsCompleted": "Completed",
+  "bookingsCancelled": "Cancelled",
+  "bookingsNoBookings": "No bookings found",
+  "bookingsTotal": "Total: {count} bookings",
+  "@bookingsTotal": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  
+  "@@Account Page": "--------------------------------",
+  "accountTitle": "My Account",
+  "accountSignIn": "Sign In or Register",
+  "accountSignInMsg": "Sign in to access your bookings, saved hotels, and personalized offers.",
+  "accountPersonalInfo": "Personal Information",
+  "accountPaymentMethods": "Payment Methods",
+  "accountLoyaltyProgram": "Loyalty Program",
+  "accountBookingHistory": "Booking History",
+  "accountPreferences": "Preferences",
+  "accountLanguage": "Language",
+  "accountSupport": "Support",
+  "accountHelpCenter": "Help Center",
+  "accountContactUs": "Contact Us",
+  "accountPrivacyPolicy": "Privacy Policy",
+  "accountTerms": "Terms & Conditions",
+  "accountSignOut": "Sign Out",
+  "accountVersion": "Version {version}",
+  "@accountVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  
+  "@@Language Selection": "--------------------------------",
+  "languageSelect": "Select Language",
+  "languageVietnamese": "Tiếng Việt",
+  "languageEnglish": "English",
+  "languageChanged": "Language changed to: {language}",
+  "@languageChanged": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  
+  "@@Common": "--------------------------------",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "save": "Save",
+  "delete": "Delete",
+  "edit": "Edit",
+  "ok": "OK",
+  "error": "Error",
+  "success": "Success",
+  "loading": "Loading...",
+  "retry": "Retry",
+  "noData": "No data available",
+  "guest": "Guest"
+}

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../../core/localization/index.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/profile_header.dart';
 import '../widgets/account_menu_item.dart';
 
@@ -10,10 +13,6 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  // Default language (Vietnamese)
-  String _currentLanguage =
-      'Tiếng Việt'; // This would come from a language provider in a real app
-
   // In a real app, this would come from user authentication state
   final bool _isLoggedIn = false;
 
@@ -21,7 +20,7 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Account'),
+        title: Text(AppLocalizations.of(context)!.accountTitle),
         centerTitle: true,
         elevation: 0,
         actions: [
@@ -69,7 +68,7 @@ class _AccountPageState extends State<AccountPage> {
                     if (_isLoggedIn)
                       AccountMenuItem(
                         icon: Icons.logout,
-                        title: 'Sign Out',
+                        title: AppLocalizations.of(context)!.accountSignOut,
                         onTap: () {
                           // Handle sign out
                         },
@@ -79,7 +78,7 @@ class _AccountPageState extends State<AccountPage> {
                     if (!_isLoggedIn)
                       AccountMenuItem(
                         icon: Icons.login,
-                        title: 'Sign In',
+                        title: AppLocalizations.of(context)!.accountSignIn,
                         onTap: () {
                           // Navigate to sign in screen
                         },
@@ -87,10 +86,13 @@ class _AccountPageState extends State<AccountPage> {
                         iconColor: Theme.of(context).primaryColor,
                       ),
                     const SizedBox(height: 24),
-                    const Center(
+                    Center(
                       child: Text(
-                        'Version 1.0.0',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                        AppLocalizations.of(context)!.accountVersion('1.0.0'),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 24),
@@ -105,6 +107,7 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   Widget _buildSignInSection(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(24),
       width: double.infinity,
@@ -113,10 +116,10 @@ class _AccountPageState extends State<AccountPage> {
         children: [
           Icon(Icons.account_circle, size: 80, color: Colors.grey[400]),
           const SizedBox(height: 16),
-          const Text(
-            'Sign in to access your bookings, saved hotels, and personalized offers.',
+          Text(
+            loc.accountSignInMsg,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, color: Colors.black87),
+            style: const TextStyle(fontSize: 14, color: Colors.black87),
           ),
           const SizedBox(height: 16),
           ElevatedButton(
@@ -129,7 +132,7 @@ class _AccountPageState extends State<AccountPage> {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            child: const Text('Sign In or Register'),
+            child: Text(loc.accountSignIn),
           ),
         ],
       ),
@@ -137,19 +140,20 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   Widget _buildAccountSection(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
-            'Account',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            loc.accountTitle,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),
         AccountMenuItem(
           icon: Icons.person_outline,
-          title: 'Personal Information',
+          title: loc.accountPersonalInfo,
           onTap: () {
             // Navigate to personal information
           },
@@ -157,7 +161,7 @@ class _AccountPageState extends State<AccountPage> {
         ),
         AccountMenuItem(
           icon: Icons.credit_card_outlined,
-          title: 'Payment Methods',
+          title: loc.accountPaymentMethods,
           onTap: () {
             // Navigate to payment methods
           },
@@ -165,7 +169,7 @@ class _AccountPageState extends State<AccountPage> {
         ),
         AccountMenuItem(
           icon: Icons.card_membership_outlined,
-          title: 'Loyalty Program',
+          title: loc.accountLoyaltyProgram,
           onTap: () {
             // Navigate to loyalty program
           },
@@ -173,7 +177,7 @@ class _AccountPageState extends State<AccountPage> {
         ),
         AccountMenuItem(
           icon: Icons.history_outlined,
-          title: 'Booking History',
+          title: loc.accountBookingHistory,
           onTap: () {
             // Navigate to booking history
           },
@@ -184,40 +188,53 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   Widget _buildPreferencesSection(BuildContext context) {
+    // Get localization
+    final loc = AppLocalizations.of(context)!;
+
+    // Get the current locale display name
+    final localeProvider = Provider.of<LocaleProvider>(context);
+    final String displayLanguage = localeProvider.getDisplayLanguage();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
-            'Preferences',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            loc.accountPreferences,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),
         AccountMenuItem(
           icon: Icons.language_outlined,
-          title: 'Language',
-          subtitle: _currentLanguage,
+          title: loc.accountLanguage,
+          subtitle: displayLanguage,
           onTap: () {
-            _showLanguageSelectionDialog(context, _currentLanguage);
+            _showLanguageSelectionDialog(context, displayLanguage);
           },
           showDivider: false,
         ),
       ],
     );
-  }
+  } // Show language selection dialog
 
-  // Show language selection dialog
   void _showLanguageSelectionDialog(
     BuildContext context,
     String currentLanguage,
   ) {
+    // Get the LocaleProvider instance
+    final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+
+    // Get localized strings
+    final loc = AppLocalizations.of(context);
+    if (loc == null) return; // Safety check
+
     showDialog<String>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'Select Language',
+            loc.languageSelect,
             style: TextStyle(
               color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.bold,
@@ -233,11 +250,13 @@ class _AccountPageState extends State<AccountPage> {
             children: [
               // Vietnamese option
               RadioListTile<String>(
-                title: const Text('Tiếng Việt'),
+                title: Text(loc.languageVietnamese),
                 value: 'Tiếng Việt',
                 groupValue: currentLanguage,
                 activeColor: Theme.of(context).colorScheme.primary,
                 onChanged: (value) {
+                  // Set locale to Vietnamese
+                  localeProvider.setLocale(const Locale('vi'));
                   Navigator.pop(context, value);
                 },
                 selected: currentLanguage == 'Tiếng Việt',
@@ -251,11 +270,13 @@ class _AccountPageState extends State<AccountPage> {
               ),
               // English option
               RadioListTile<String>(
-                title: const Text('English'),
+                title: Text(loc.languageEnglish),
                 value: 'English',
                 groupValue: currentLanguage,
                 activeColor: Theme.of(context).colorScheme.primary,
                 onChanged: (value) {
+                  // Set locale to English
+                  localeProvider.setLocale(const Locale('en'));
                   Navigator.pop(context, value);
                 },
                 selected: currentLanguage == 'English',
@@ -275,7 +296,7 @@ class _AccountPageState extends State<AccountPage> {
                 Navigator.pop(context);
               },
               child: Text(
-                'Cancel',
+                loc.cancel,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold,
@@ -287,21 +308,17 @@ class _AccountPageState extends State<AccountPage> {
       },
     ).then((selectedLanguage) {
       if (selectedLanguage != null) {
-        // Update state with the new language
-        setState(() {
-          _currentLanguage = selectedLanguage;
-        });
-
-        // In a real app, this would update app's locale
-        // For example: context.read<LocaleProvider>().setLocale(selectedLanguage == 'English' ? Locale('en') : Locale('vi'))
+        // No need to update state manually as Provider will trigger rebuild
 
         // Dismiss any existing snackbars first
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
-        // Show a brief confirmation with the new language
+        ScaffoldMessenger.of(
+          context,
+        ).hideCurrentSnackBar(); // Show a brief confirmation with the new language
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Selected language: $selectedLanguage'),
+            content: Text(
+              AppLocalizations.of(context)!.languageChanged(selectedLanguage),
+            ),
             duration: const Duration(milliseconds: 800),
             behavior: SnackBarBehavior.floating,
             margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
@@ -315,19 +332,20 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   Widget _buildSupportSection(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
-            'Support',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            loc.accountSupport,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),
         AccountMenuItem(
           icon: Icons.help_outline,
-          title: 'Help Center',
+          title: loc.accountHelpCenter,
           onTap: () {
             // Navigate to help center
           },
@@ -335,7 +353,7 @@ class _AccountPageState extends State<AccountPage> {
         ),
         AccountMenuItem(
           icon: Icons.chat_outlined,
-          title: 'Contact Us',
+          title: loc.accountContactUs,
           onTap: () {
             // Navigate to contact us
           },
@@ -343,7 +361,7 @@ class _AccountPageState extends State<AccountPage> {
         ),
         AccountMenuItem(
           icon: Icons.security_outlined,
-          title: 'Privacy Policy',
+          title: loc.accountPrivacyPolicy,
           onTap: () {
             // Navigate to privacy policy
           },
@@ -351,7 +369,7 @@ class _AccountPageState extends State<AccountPage> {
         ),
         AccountMenuItem(
           icon: Icons.description_outlined,
-          title: 'Terms & Conditions',
+          title: loc.accountTerms,
           onTap: () {
             // Navigate to terms and conditions
           },
