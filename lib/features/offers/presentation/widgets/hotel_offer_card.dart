@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/widgets/custom_cached_image.dart';
+import '../../../../core/localization/index.dart';
 
 class HotelOfferCard extends StatelessWidget {
   final String hotelName;
@@ -38,7 +39,7 @@ class HotelOfferCard extends StatelessWidget {
           color: Theme.of(context).cardColor,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withAlpha((0.06 * 255).toInt()),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -249,7 +250,7 @@ class HotelOfferCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: const Text('View Deal'),
+                      child: Text(AppLocalizations.of(context)!.homeViewAll),
                     ),
                   ),
                 ],

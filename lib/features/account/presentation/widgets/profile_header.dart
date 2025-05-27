@@ -62,12 +62,16 @@ class ProfileHeader extends StatelessWidget {
                 end: Alignment.bottomRight,
                 colors: [
                   _getMembershipColor(membershipTier),
-                  _getMembershipColor(membershipTier).withOpacity(0.7),
+                  _getMembershipColor(
+                    membershipTier,
+                  ).withAlpha((0.7 * 255).toInt()),
                 ],
               ),
               boxShadow: [
                 BoxShadow(
-                  color: _getMembershipColor(membershipTier).withOpacity(0.3),
+                  color: _getMembershipColor(
+                    membershipTier,
+                  ).withAlpha((0.3 * 255).toInt()),
                   blurRadius: 8,
                   offset: const Offset(0, 4),
                 ),
@@ -123,7 +127,9 @@ class ProfileHeader extends StatelessWidget {
                         // Navigate to loyalty program details
                       },
                       style: TextButton.styleFrom(
-                        backgroundColor: Colors.white.withOpacity(0.2),
+                        backgroundColor: Colors.white.withAlpha(
+                          (0.2 * 255).toInt(),
+                        ),
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,

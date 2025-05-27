@@ -79,7 +79,7 @@ class PopularDestinationsSection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withAlpha((0.1 * 255).toInt()),
                         blurRadius: 4,
                         offset: const Offset(0, 2),
                       ),
@@ -105,7 +105,7 @@ class PopularDestinationsSection extends StatelessWidget {
                                 end: Alignment.bottomCenter,
                                 colors: [
                                   Colors.transparent,
-                                  Colors.black.withOpacity(0.7),
+                                  Colors.black.withAlpha((0.7 * 255).toInt()),
                                 ],
                                 stops: const [0.5, 1.0],
                               ),

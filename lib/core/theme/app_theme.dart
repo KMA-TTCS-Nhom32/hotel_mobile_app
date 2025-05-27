@@ -71,10 +71,10 @@ class AppTheme {
       onTertiary: AppColors.onAccentLight,
       error: AppColors.errorLight,
       onError: AppColors.onErrorLight,
-      background: AppColors.backgroundLight,
-      onBackground: AppColors.onBackgroundLight,
-      surface: AppColors.surfaceLight,
-      onSurface: AppColors.onSurfaceLight,
+      surface: AppColors.backgroundLight,
+      onSurface: AppColors.onBackgroundLight,
+      // surface: AppColors.surfaceLight,
+      // onSurface: AppColors.onSurfaceLight,
     );
   }
 
@@ -88,10 +88,12 @@ class AppTheme {
       onTertiary: AppColors.onAccentDark,
       error: AppColors.errorDark,
       onError: AppColors.onErrorDark,
-      background: AppColors.backgroundDark,
-      onBackground: AppColors.onBackgroundDark,
-      surface: AppColors.surfaceDark,
-      onSurface: AppColors.onSurfaceDark,
+      // background: AppColors.backgroundDark,
+      // onBackground: AppColors.onBackgroundDark,
+      // surface: AppColors.surfaceDark,
+      // onSurface: AppColors.onSurfaceDark,
+      surface: AppColors.backgroundDark,
+      onSurface: AppColors.onBackgroundDark,
     );
   }
 

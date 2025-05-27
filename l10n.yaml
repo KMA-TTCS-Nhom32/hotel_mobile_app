@@ -6,3 +6,4 @@ output-class: AppLocalizations
 preferred-supported-locales:
   - vi
   - en
+synthetic-package: false

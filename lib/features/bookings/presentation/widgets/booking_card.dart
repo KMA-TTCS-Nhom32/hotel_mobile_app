@@ -36,7 +36,7 @@ class BookingCard extends StatelessWidget {
         color: Theme.of(context).cardColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withAlpha((0.06 * 255).round()),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/localization/index.dart';
 import '../widgets/hotel_offer_card.dart';
 
 class OffersPage extends StatefulWidget {
@@ -9,22 +10,32 @@ class OffersPage extends StatefulWidget {
 }
 
 class _OffersPageState extends State<OffersPage> {
-  final List<String> _categories = [
-    'All Offers',
-    'Hotels',
-    'Resorts',
-    'Vacations',
-    'Flights',
-    'Packages',
-  ];
+  // Use getter for localization for easier access
+  AppLocalizations get loc => AppLocalizations.of(context)!;
+  // We'll use these keys to store category data
+  late final List<String> _categories;
+  late String _selectedCategory;
 
-  String _selectedCategory = 'All Offers';
+  @override
+  void initState() {
+    super.initState();
+    // Initialize categories
+    _categories = [
+      'All Offers',
+      'Hotels',
+      'Resorts',
+      'Vacations',
+      'Flights',
+      'Packages',
+    ];
+    _selectedCategory = _categories[0];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hotel Offers'),
+        title: Text(loc.navOffers),
         centerTitle: true,
         elevation: 0,
       ),
@@ -52,7 +63,7 @@ class _OffersPageState extends State<OffersPage> {
         color: Theme.of(context).scaffoldBackgroundColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withAlpha((0.05 * 255).toInt()),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -80,7 +91,7 @@ class _OffersPageState extends State<OffersPage> {
                     backgroundColor: Colors.white,
                     selectedColor: Theme.of(
                       context,
-                    ).primaryColor.withOpacity(0.15),
+                    ).primaryColor.withAlpha((0.15 * 255).toInt()),
                     labelStyle: TextStyle(
                       color:
                           isSelected

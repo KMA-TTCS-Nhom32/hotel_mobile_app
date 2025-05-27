@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../../core/theme/index.dart';
+import '../../../../core/localization/app_localizations_exports.dart';
 import '../widgets/featured_hotels_carousel.dart';
 import '../widgets/popular_destinations_section.dart';
 import '../widgets/special_offers_section.dart';

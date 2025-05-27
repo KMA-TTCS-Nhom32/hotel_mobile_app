@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../core/localization/index.dart';
 import '../../cubit/main_tab_cubit.dart';
 import '../../../home/presentation/pages/home_page.dart';
 import '../../../promotions/presentation/pages/promotions_page.dart';
@@ -60,7 +60,7 @@ class _MainNavigationView extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withAlpha((0.1 * 255).toInt()),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),
@@ -79,7 +79,9 @@ class _MainNavigationView extends StatelessWidget {
         ),
         unselectedIconTheme: IconThemeData(
           size: 24,
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+          color: Theme.of(
+            context,
+          ).colorScheme.onSurface.withAlpha((0.6 * 255).round()),
         ),
         items: [
           BottomNavigationBarItem(
