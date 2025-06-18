@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'core/di/service_locator.dart';
 import 'core/theme/app_theme.dart';
 import 'core/localization/index.dart';
-import 'features/navigation/presentation/pages/main_navigation_screen.dart';
+import 'features/navigation/presentation/pages/main_navigation_screen_riverpod.dart';
+import 'core/providers/locale_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,24 +21,19 @@ void main() async {
     SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent),
   );
 
-  // Initialize LocaleProvider
-  final localeProvider = LocaleProvider();
-  await localeProvider.init();
+  // Initialize service locator
+  await initializeServiceLocator();
 
-  runApp(
-    ChangeNotifierProvider<LocaleProvider>(
-      create: (_) => localeProvider,
-      child: const MyApp(),
-    ),
-  );
+  // Run the app with ProviderScope for Riverpod
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
   @override
-  Widget build(BuildContext context) {
-    // Get current locale from provider
-    final localeProvider = Provider.of<LocaleProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Get current locale from Riverpod
+    final locale = ref.watch(localeNotifierProvider);
 
     return MaterialApp(
       title: 'AHomeVilla Hotel',
@@ -44,13 +41,13 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
 
       // Localization configuration
-      locale: localeProvider.locale,
+      locale: locale,
       supportedLocales: LocalizationConfig.supportedLocales,
       localizationsDelegates: LocalizationConfig.localizationsDelegates,
       localeResolutionCallback: LocalizationConfig.localeResolutionCallback,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.light, // Default to light theme
-      home: const MainNavigationScreen(),
+      home: const MainNavigationScreenRiverpod(),
     );
   }
 }

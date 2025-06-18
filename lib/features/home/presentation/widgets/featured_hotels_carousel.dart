@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../../../../core/widgets/custom_cached_image.dart';
+import '../../domain/entities/featured_hotel.dart';
 
 class FeaturedHotelsCarousel extends StatelessWidget {
-  const FeaturedHotelsCarousel({super.key});
+  final List<FeaturedHotel>? featuredHotels;
+
+  const FeaturedHotelsCarousel({this.featuredHotels, super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Sample data - In a real app, this would come from an API
-    final hotels = [
+    // Sample data as fallback
+    final sampleData = [
       {
         'id': '1',
         'name': 'Grand Plaza Hotel',
@@ -61,9 +64,31 @@ class FeaturedHotelsCarousel extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         CarouselSlider.builder(
-          itemCount: hotels.length,
+          itemCount: featuredHotels?.length ?? sampleData.length,
           itemBuilder: (context, index, realIndex) {
-            final hotel = hotels[index];
+            final dynamic hotel =
+                featuredHotels != null
+                    ? featuredHotels![index]
+                    : sampleData[index];
+            final String imageUrl =
+                featuredHotels != null
+                    ? hotel.imageUrl
+                    : hotel['image'] as String;
+            final String name =
+                featuredHotels != null ? hotel.name : hotel['name'] as String;
+            final String location =
+                featuredHotels != null
+                    ? hotel.location
+                    : hotel['location'] as String;
+            final String price =
+                featuredHotels != null
+                    ? '\$${hotel.price.toStringAsFixed(0)}'
+                    : hotel['price'] as String;
+            final double rating =
+                featuredHotels != null
+                    ? hotel.rating
+                    : hotel['rating'] as double;
+
             return GestureDetector(
               onTap: () {
                 // Navigate to hotel details
@@ -87,7 +112,7 @@ class FeaturedHotelsCarousel extends StatelessWidget {
                     children: [
                       // Hotel Image
                       CustomCachedImage(
-                        imageUrl: hotel['image'] as String,
+                        imageUrl: imageUrl,
                         width: double.infinity,
                         height: 220,
                         borderRadius: BorderRadius.circular(16),
@@ -117,7 +142,7 @@ class FeaturedHotelsCarousel extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              hotel['name'] as String,
+                              name,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

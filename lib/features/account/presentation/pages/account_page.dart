@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/localization/index.dart';
+import '../../../../core/providers/locale_provider.dart';
 import '../widgets/profile_header.dart';
 import '../widgets/account_menu_item.dart';
 
-class AccountPage extends StatefulWidget {
+class AccountPage extends ConsumerStatefulWidget {
   const AccountPage({super.key});
 
   @override
-  State<AccountPage> createState() => _AccountPageState();
+  ConsumerState<AccountPage> createState() => _AccountPageState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class _AccountPageState extends ConsumerState<AccountPage> {
   // In a real app, this would come from user authentication state
   final bool _isLoggedIn = false;
 
@@ -185,14 +186,13 @@ class _AccountPageState extends State<AccountPage> {
       ],
     );
   }
-
   Widget _buildPreferencesSection(BuildContext context) {
     // Get localization
     final loc = AppLocalizations.of(context)!;
 
-    // Get the current locale display name
-    final localeProvider = Provider.of<LocaleProvider>(context);
-    final String displayLanguage = localeProvider.getDisplayLanguage();
+    // Get the current locale display name from Riverpod
+    final localeNotifier = ref.watch(localeNotifierProvider.notifier);
+    final String displayLanguage = localeNotifier.getDisplayLanguage();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,13 +216,12 @@ class _AccountPageState extends State<AccountPage> {
       ],
     );
   } // Show language selection dialog
-
   void _showLanguageSelectionDialog(
     BuildContext context,
     String currentLanguage,
   ) {
-    // Get the LocaleProvider instance
-    final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+    // Get the LocaleNotifier instance from Riverpod
+    final localeNotifier = ref.read(localeNotifierProvider.notifier);
 
     // Get localized strings
     final loc = AppLocalizations.of(context);
@@ -252,10 +251,9 @@ class _AccountPageState extends State<AccountPage> {
                 title: Text(loc.languageVietnamese),
                 value: 'Tiếng Việt',
                 groupValue: currentLanguage,
-                activeColor: Theme.of(context).colorScheme.primary,
-                onChanged: (value) {
+                activeColor: Theme.of(context).colorScheme.primary,                onChanged: (value) {
                   // Set locale to Vietnamese
-                  localeProvider.setLocale(const Locale('vi'));
+                  localeNotifier.setLocale(const Locale('vi'));
                   Navigator.pop(context, value);
                 },
                 selected: currentLanguage == 'Tiếng Việt',
@@ -272,10 +270,9 @@ class _AccountPageState extends State<AccountPage> {
                 title: Text(loc.languageEnglish),
                 value: 'English',
                 groupValue: currentLanguage,
-                activeColor: Theme.of(context).colorScheme.primary,
-                onChanged: (value) {
+                activeColor: Theme.of(context).colorScheme.primary,                onChanged: (value) {
                   // Set locale to English
-                  localeProvider.setLocale(const Locale('en'));
+                  localeNotifier.setLocale(const Locale('en'));
                   Navigator.pop(context, value);
                 },
                 selected: currentLanguage == 'English',
