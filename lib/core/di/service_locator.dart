@@ -1,5 +1,10 @@
 import 'package:get_it/get_it.dart';
 
+import '../services/api_service.dart';
+import '../services/secure_storage_service.dart';
+import '../../features/auth/data/repositories/auth_repository.dart';
+import '../../features/auth/data/repositories/auth_repository_impl.dart';
+
 /// Global service locator instance
 final GetIt serviceLocator = GetIt.instance;
 
@@ -19,15 +24,23 @@ Future<void> initializeServiceLocator() async {
 }
 
 void _registerServices() {
-  // Example:
-  // serviceLocator.registerSingleton<ApiService>(ApiServiceImpl());
+  // API service for network requests
+  serviceLocator.registerSingleton<ApiService>(ApiService());
+
+  // Secure storage for sensitive data
+  serviceLocator.registerSingleton<SecureStorageService>(
+    SecureStorageService(),
+  );
 }
 
 void _registerRepositories() {
-  // Example:
-  // serviceLocator.registerSingleton<UserRepository>(
-  //   UserRepositoryImpl(apiService: serviceLocator<ApiService>()),
-  // );
+  // Auth repository
+  serviceLocator.registerSingleton<AuthRepository>(
+    AuthRepositoryImpl(
+      serviceLocator<ApiService>(),
+      serviceLocator<SecureStorageService>(),
+    ),
+  );
 }
 
 void _registerControllers() {

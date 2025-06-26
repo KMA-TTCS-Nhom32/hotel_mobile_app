@@ -12,6 +12,81 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Hotel Booking';
 
   @override
+  String get loginWelcome => 'Welcome back!';
+
+  @override
+  String get loginSubtitle => 'Please login to your account';
+
+  @override
+  String get loginEmailPhonePlaceholder => 'Email or Phone Number';
+
+  @override
+  String get loginPasswordPlaceholder => 'Password';
+
+  @override
+  String get loginButton => 'Log In';
+
+  @override
+  String get loginForgotPassword => 'Forgot Password?';
+
+  @override
+  String get loginNoAccount => 'Don\'t have an account?';
+
+  @override
+  String get loginSignUp => 'Sign Up';
+
+  @override
+  String get loginInvalidCredentials => 'Invalid email/phone or password.';
+
+  @override
+  String get loginNetworkError => 'Network error. Please check your connection.';
+
+  @override
+  String get loginGenericError => 'Login failed. Please try again.';
+
+  @override
+  String get registerTitle => 'Create Account';
+
+  @override
+  String get registerSubtitle => 'Create your account to enjoy exclusive benefits';
+
+  @override
+  String get registerFullName => 'Full Name';
+
+  @override
+  String get registerEmail => 'Email';
+
+  @override
+  String get registerPhone => 'Phone Number';
+
+  @override
+  String get registerPassword => 'Password';
+
+  @override
+  String get registerButton => 'Create Account';
+
+  @override
+  String get registerTerms => 'By creating an account, you agree to our Terms of Service and Privacy Policy';
+
+  @override
+  String get registerInProgress => 'Registration feature coming soon!';
+
+  @override
+  String get forgotPasswordTitle => 'Reset Your Password';
+
+  @override
+  String get forgotPasswordSubtitle => 'Enter your email or phone number and we\'ll send you a code';
+
+  @override
+  String get forgotPasswordEmailPhone => 'Email or Phone';
+
+  @override
+  String get forgotPasswordButton => 'Send Reset Code';
+
+  @override
+  String get forgotPasswordInProgress => 'Password reset feature coming soon!';
+
+  @override
   String get navHome => 'Home';
 
   @override

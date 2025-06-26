@@ -101,6 +101,156 @@ abstract class AppLocalizations {
   /// **'Hotel Booking'**
   String get appTitle;
 
+  /// No description provided for @loginWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back!'**
+  String get loginWelcome;
+
+  /// No description provided for @loginSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please login to your account'**
+  String get loginSubtitle;
+
+  /// No description provided for @loginEmailPhonePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Email or Phone Number'**
+  String get loginEmailPhonePlaceholder;
+
+  /// No description provided for @loginPasswordPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get loginPasswordPlaceholder;
+
+  /// No description provided for @loginButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Log In'**
+  String get loginButton;
+
+  /// No description provided for @loginForgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get loginForgotPassword;
+
+  /// No description provided for @loginNoAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get loginNoAccount;
+
+  /// No description provided for @loginSignUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get loginSignUp;
+
+  /// No description provided for @loginInvalidCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email/phone or password.'**
+  String get loginInvalidCredentials;
+
+  /// No description provided for @loginNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Network error. Please check your connection.'**
+  String get loginNetworkError;
+
+  /// No description provided for @loginGenericError.
+  ///
+  /// In en, this message translates to:
+  /// **'Login failed. Please try again.'**
+  String get loginGenericError;
+
+  /// No description provided for @registerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get registerTitle;
+
+  /// No description provided for @registerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your account to enjoy exclusive benefits'**
+  String get registerSubtitle;
+
+  /// No description provided for @registerFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get registerFullName;
+
+  /// No description provided for @registerEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get registerEmail;
+
+  /// No description provided for @registerPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get registerPhone;
+
+  /// No description provided for @registerPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get registerPassword;
+
+  /// No description provided for @registerButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get registerButton;
+
+  /// No description provided for @registerTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'By creating an account, you agree to our Terms of Service and Privacy Policy'**
+  String get registerTerms;
+
+  /// No description provided for @registerInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration feature coming soon!'**
+  String get registerInProgress;
+
+  /// No description provided for @forgotPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Your Password'**
+  String get forgotPasswordTitle;
+
+  /// No description provided for @forgotPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email or phone number and we\'ll send you a code'**
+  String get forgotPasswordSubtitle;
+
+  /// No description provided for @forgotPasswordEmailPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Email or Phone'**
+  String get forgotPasswordEmailPhone;
+
+  /// No description provided for @forgotPasswordButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reset Code'**
+  String get forgotPasswordButton;
+
+  /// No description provided for @forgotPasswordInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset feature coming soon!'**
+  String get forgotPasswordInProgress;
+
   /// No description provided for @navHome.
   ///
   /// In en, this message translates to:

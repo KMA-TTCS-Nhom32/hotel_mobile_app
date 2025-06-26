@@ -12,6 +12,81 @@ class AppLocalizationsVi extends AppLocalizations {
   String get appTitle => 'Đặt Phòng Khách Sạn';
 
   @override
+  String get loginWelcome => 'Chào mừng trở lại!';
+
+  @override
+  String get loginSubtitle => 'Vui lòng đăng nhập vào tài khoản của bạn';
+
+  @override
+  String get loginEmailPhonePlaceholder => 'Email hoặc Số điện thoại';
+
+  @override
+  String get loginPasswordPlaceholder => 'Mật khẩu';
+
+  @override
+  String get loginButton => 'Đăng nhập';
+
+  @override
+  String get loginForgotPassword => 'Quên mật khẩu?';
+
+  @override
+  String get loginNoAccount => 'Bạn chưa có tài khoản?';
+
+  @override
+  String get loginSignUp => 'Đăng ký';
+
+  @override
+  String get loginInvalidCredentials => 'Email/số điện thoại hoặc mật khẩu không hợp lệ.';
+
+  @override
+  String get loginNetworkError => 'Lỗi kết nối. Vui lòng kiểm tra lại kết nối của bạn.';
+
+  @override
+  String get loginGenericError => 'Đăng nhập thất bại. Vui lòng thử lại.';
+
+  @override
+  String get registerTitle => 'Tạo tài khoản';
+
+  @override
+  String get registerSubtitle => 'Tạo tài khoản để nhận những ưu đãi đặc biệt';
+
+  @override
+  String get registerFullName => 'Họ và tên';
+
+  @override
+  String get registerEmail => 'Email';
+
+  @override
+  String get registerPhone => 'Số điện thoại';
+
+  @override
+  String get registerPassword => 'Mật khẩu';
+
+  @override
+  String get registerButton => 'Tạo tài khoản';
+
+  @override
+  String get registerTerms => 'Bằng việc tạo tài khoản, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi';
+
+  @override
+  String get registerInProgress => 'Tính năng đăng ký sẽ sớm ra mắt!';
+
+  @override
+  String get forgotPasswordTitle => 'Đặt lại mật khẩu';
+
+  @override
+  String get forgotPasswordSubtitle => 'Nhập email hoặc số điện thoại và chúng tôi sẽ gửi cho bạn mã xác nhận';
+
+  @override
+  String get forgotPasswordEmailPhone => 'Email hoặc Số điện thoại';
+
+  @override
+  String get forgotPasswordButton => 'Gửi mã đặt lại';
+
+  @override
+  String get forgotPasswordInProgress => 'Tính năng đặt lại mật khẩu sẽ sớm ra mắt!';
+
+  @override
   String get navHome => 'Trang chủ';
 
   @override
