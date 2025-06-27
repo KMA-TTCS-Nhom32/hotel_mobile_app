@@ -33,12 +33,35 @@ class AuthController extends StateNotifier<AuthState> {
         final token = await _authRepository.getStoredToken();
         if (token != null) {
           state = AuthAuthenticatedState(token.accessToken);
+          // After confirming auth status, try to fetch user profile
+          _fetchUserProfile();
           return;
         }
       }
       state = const AuthUnauthenticatedState();
     } catch (e) {
       state = const AuthUnauthenticatedState();
+    }
+  }
+
+  /// Fetch current user profile
+  Future<void> _fetchUserProfile() async {
+    try {
+      if (state is AuthAuthenticatedState) {
+        final userProfile = await _authRepository.getUserProfile();
+        final currentState = state as AuthAuthenticatedState;
+        state = currentState.copyWith(userProfile: userProfile);
+      }
+    } catch (e) {
+      // In case of error fetching profile, keep the current authenticated state
+      // but without profile data. Do not change to error state as we're already logged in.
+    }
+  }
+
+  /// Manually refresh user profile
+  Future<void> refreshUserProfile() async {
+    if (state is AuthAuthenticatedState) {
+      await _fetchUserProfile();
     }
   }
 
@@ -51,7 +74,18 @@ class AuthController extends StateNotifier<AuthState> {
         password: password,
       );
       final token = await _authRepository.login(credentials);
-      state = AuthAuthenticatedState(token.accessToken);
+
+      // After successful login, fetch user profile
+      try {
+        final userProfile = await _authRepository.getUserProfile();
+        state = AuthAuthenticatedState(
+          token.accessToken,
+          userProfile: userProfile,
+        );
+      } catch (profileError) {
+        // If profile fetch fails, still mark as authenticated but without profile
+        state = AuthAuthenticatedState(token.accessToken);
+      }
     } catch (e) {
       state = AuthErrorState(
         e is AuthException ? e.message : 'Login failed. Please try again.',

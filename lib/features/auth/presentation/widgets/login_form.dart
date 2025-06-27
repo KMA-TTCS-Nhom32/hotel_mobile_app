@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/localization/index.dart';
+import '../../../../core/localization/validator_messages.dart';
 import '../../../../core/theme/app_colors.dart';
 
 /// Widget for the login form
@@ -146,7 +147,7 @@ class _LoginFormState extends State<LoginForm> {
 
   String? _validateEmailOrPhone(String? value, AppLocalizations loc) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your email or phone number';
+      return loc.getEmptyEmailPhoneMessage();
     }
 
     // Check if it's an email
@@ -155,17 +156,24 @@ class _LoginFormState extends State<LoginForm> {
     final phoneRegex = RegExp(r'^\+?[0-9]{10,12}$');
 
     if (!emailRegex.hasMatch(value) && !phoneRegex.hasMatch(value)) {
-      return 'Please enter a valid email or phone number';
+      return loc.getInvalidEmailPhoneMessage();
     }
     return null;
   }
 
   String? _validatePassword(String? value, AppLocalizations loc) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your password';
+      return loc.getEmptyPasswordMessage();
     }
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters';
+
+    // Enhanced password validation with minimum 8 chars,
+    // at least 1 uppercase, 1 lowercase, 1 number and 1 special char
+    final passwordRegex = RegExp(
+      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$',
+    );
+
+    if (!passwordRegex.hasMatch(value)) {
+      return loc.getInvalidPasswordMessage();
     }
     return null;
   }

@@ -3,8 +3,10 @@ import 'package:dio/dio.dart';
 import '../../../../core/services/api_service.dart';
 import '../../../../core/services/secure_storage_service.dart';
 import '../../domain/entities/auth_token.dart';
+import '../../domain/entities/user_profile.dart';
 import '../models/login_credentials.dart';
 import '../models/login_response_dto.dart';
+import '../models/user_profile_dto.dart';
 import 'auth_repository.dart';
 
 /// Implementation of AuthRepository
@@ -108,6 +110,17 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> clearToken() async {
     await _secureStorage.clearAuthData();
+  }
+
+  @override
+  Future<UserProfile> getUserProfile() async {
+    try {
+      final response = await _apiService.get('/auth/profile');
+      final userProfileDto = UserProfileDto.fromJson(response.data);
+      return userProfileDto.toEntity();
+    } catch (e) {
+      throw _handleAuthError(e);
+    }
   }
 
   /// Convert errors to auth-specific exceptions

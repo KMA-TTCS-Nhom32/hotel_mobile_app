@@ -45,6 +45,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loginGenericError => 'Login failed. Please try again.';
 
   @override
+  String get validationRequired => 'This field is required.';
+
+  @override
+  String get validationEmailPhone => 'Please enter a valid email or phone number.';
+
+  @override
+  String get validationPassword => 'Password must be at least 8 characters with at least one uppercase letter, one lowercase letter, one number, and one special character.';
+
+  @override
+  String get validationEmptyEmail => 'Please enter your email or phone number.';
+
+  @override
+  String get validationEmptyPassword => 'Please enter your password.';
+
+  @override
   String get registerTitle => 'Create Account';
 
   @override
@@ -154,6 +169,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountPersonalInfo => 'Personal Information';
 
   @override
+  String get accountEmail => 'Email';
+
+  @override
+  String get accountPhone => 'Phone';
+
+  @override
+  String get accountRole => 'Member Status';
+
+  @override
+  String get accountVerified => 'Verified';
+
+  @override
+  String get accountUnverified => 'Not Verified';
+
+  @override
+  String get accountEditProfile => 'Edit Profile';
+
+  @override
   String get accountPaymentMethods => 'Payment Methods';
 
   @override
@@ -185,6 +218,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountSignOut => 'Sign Out';
+
+  @override
+  String get accountLogoutConfirm => 'Are you sure you want to sign out?';
+
+  @override
+  String get accountLogoutProgress => 'Signing out...';
+
+  @override
+  String accountWelcome(Object name) {
+    return 'Welcome, $name';
+  }
 
   @override
   String accountVersion(String version) {

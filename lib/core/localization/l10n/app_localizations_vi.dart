@@ -45,6 +45,21 @@ class AppLocalizationsVi extends AppLocalizations {
   String get loginGenericError => 'Đăng nhập thất bại. Vui lòng thử lại.';
 
   @override
+  String get validationRequired => 'Trường này không được để trống.';
+
+  @override
+  String get validationEmailPhone => 'Vui lòng nhập email hoặc số điện thoại hợp lệ.';
+
+  @override
+  String get validationPassword => 'Mật khẩu phải có ít nhất 8 ký tự với ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt.';
+
+  @override
+  String get validationEmptyEmail => 'Vui lòng nhập email hoặc số điện thoại của bạn.';
+
+  @override
+  String get validationEmptyPassword => 'Vui lòng nhập mật khẩu của bạn.';
+
+  @override
   String get registerTitle => 'Tạo tài khoản';
 
   @override
@@ -154,6 +169,24 @@ class AppLocalizationsVi extends AppLocalizations {
   String get accountPersonalInfo => 'Thông tin cá nhân';
 
   @override
+  String get accountEmail => 'Email';
+
+  @override
+  String get accountPhone => 'Số điện thoại';
+
+  @override
+  String get accountRole => 'Trạng thái thành viên';
+
+  @override
+  String get accountVerified => 'Đã xác minh';
+
+  @override
+  String get accountUnverified => 'Chưa xác minh';
+
+  @override
+  String get accountEditProfile => 'Sửa hồ sơ';
+
+  @override
   String get accountPaymentMethods => 'Phương thức thanh toán';
 
   @override
@@ -185,6 +218,17 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get accountSignOut => 'Đăng xuất';
+
+  @override
+  String get accountLogoutConfirm => 'Bạn có chắc chắn muốn đăng xuất?';
+
+  @override
+  String get accountLogoutProgress => 'Đang đăng xuất...';
+
+  @override
+  String accountWelcome(Object name) {
+    return 'Xin chào, $name';
+  }
 
   @override
   String accountVersion(String version) {

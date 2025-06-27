@@ -167,6 +167,36 @@ abstract class AppLocalizations {
   /// **'Login failed. Please try again.'**
   String get loginGenericError;
 
+  /// No description provided for @validationRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required.'**
+  String get validationRequired;
+
+  /// No description provided for @validationEmailPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email or phone number.'**
+  String get validationEmailPhone;
+
+  /// No description provided for @validationPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters with at least one uppercase letter, one lowercase letter, one number, and one special character.'**
+  String get validationPassword;
+
+  /// No description provided for @validationEmptyEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email or phone number.'**
+  String get validationEmptyEmail;
+
+  /// No description provided for @validationEmptyPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password.'**
+  String get validationEmptyPassword;
+
   /// No description provided for @registerTitle.
   ///
   /// In en, this message translates to:
@@ -377,6 +407,42 @@ abstract class AppLocalizations {
   /// **'Personal Information'**
   String get accountPersonalInfo;
 
+  /// No description provided for @accountEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get accountEmail;
+
+  /// No description provided for @accountPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get accountPhone;
+
+  /// No description provided for @accountRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Member Status'**
+  String get accountRole;
+
+  /// No description provided for @accountVerified.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get accountVerified;
+
+  /// No description provided for @accountUnverified.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Verified'**
+  String get accountUnverified;
+
+  /// No description provided for @accountEditProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get accountEditProfile;
+
   /// No description provided for @accountPaymentMethods.
   ///
   /// In en, this message translates to:
@@ -442,6 +508,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign Out'**
   String get accountSignOut;
+
+  /// No description provided for @accountLogoutConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to sign out?'**
+  String get accountLogoutConfirm;
+
+  /// No description provided for @accountLogoutProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Signing out...'**
+  String get accountLogoutProgress;
+
+  /// No description provided for @accountWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome, {name}'**
+  String accountWelcome(Object name);
 
   /// No description provided for @accountVersion.
   ///

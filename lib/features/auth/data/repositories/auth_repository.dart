@@ -1,4 +1,5 @@
 import '../../domain/entities/auth_token.dart';
+import '../../domain/entities/user_profile.dart';
 import '../models/login_credentials.dart';
 import '../models/login_response_dto.dart';
 
@@ -24,4 +25,7 @@ abstract class AuthRepository {
 
   /// Clear auth token
   Future<void> clearToken();
+
+  /// Get current user profile
+  Future<UserProfile> getUserProfile();
 }
