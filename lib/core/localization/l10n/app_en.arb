@@ -98,6 +98,13 @@
   "accountLogoutConfirm": "Are you sure you want to sign out?",
   "accountLogoutProgress": "Signing out...",
   "accountWelcome": "Welcome, {name}",
+  "@accountWelcome": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "accountVersion": "Version {version}",
   "@accountVersion": {
     "placeholders": {
@@ -106,6 +113,9 @@
       }
     }
   },
+  "accountGender": "Gender",
+  "accountMale": "Male",
+  "accountFemale": "Female",
   
   "@@Language Selection": "--------------------------------",
   "languageSelect": "Select Language",

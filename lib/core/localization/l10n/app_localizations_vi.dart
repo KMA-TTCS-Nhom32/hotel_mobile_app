@@ -226,7 +226,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get accountLogoutProgress => 'Đang đăng xuất...';
 
   @override
-  String accountWelcome(Object name) {
+  String accountWelcome(String name) {
     return 'Xin chào, $name';
   }
 
@@ -234,6 +234,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String accountVersion(String version) {
     return 'Phiên bản $version';
   }
+
+  @override
+  String get accountGender => 'Giới tính';
+
+  @override
+  String get accountMale => 'Nam';
+
+  @override
+  String get accountFemale => 'Nữ';
 
   @override
   String get languageSelect => 'Chọn ngôn ngữ';

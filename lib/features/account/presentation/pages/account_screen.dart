@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart' as provider;
 
 import '../../../../core/localization/index.dart';
-import '../../../../core/localization/locale_provider.dart';
+import '../../../../core/providers/locale_provider.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../auth/controller/auth_controller.dart';
 import '../../../auth/controller/auth_state.dart';
@@ -62,7 +61,7 @@ class AccountScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             _buildPersonalInfoSection(context, profile, loc),
             const Divider(),
-            _buildPreferencesSection(context, loc),
+            _buildPreferencesSection(context, loc, ref),
             const Divider(),
             _buildSupportSection(context, loc),
             const Divider(),
@@ -88,7 +87,7 @@ class AccountScreen extends ConsumerWidget {
           end: Alignment.bottomCenter,
           colors: [
             AppColors.primaryLight,
-            AppColors.primaryLight.withOpacity(0.7),
+            AppColors.primaryLight.withAlpha((0.7 * 255).toInt()),
           ],
         ),
       ),
@@ -141,7 +140,7 @@ class AccountScreen extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withAlpha((0.2 * 255).toInt()),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
@@ -157,7 +156,7 @@ class AccountScreen extends ConsumerWidget {
               margin: const EdgeInsets.only(top: 8),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: Colors.amber.withOpacity(0.3),
+                color: Colors.amber.withAlpha((0.3 * 255).toInt()),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
@@ -235,9 +234,12 @@ class AccountScreen extends ConsumerWidget {
                 _buildInfoItem(
                   context,
                   icon: Icons.person_outlined,
-                  title: "Gender",
+                  title: loc.accountGender,
                   subtitle:
-                      profile.gender.toString().split('.').last.toUpperCase(),
+                      profile.gender.toString().split('.').last.toLowerCase() ==
+                              'male'
+                          ? loc.accountMale
+                          : loc.accountFemale,
                 ),
               ],
             ),
@@ -246,7 +248,11 @@ class AccountScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildPreferencesSection(BuildContext context, AppLocalizations loc) {
+  Widget _buildPreferencesSection(
+    BuildContext context,
+    AppLocalizations loc,
+    WidgetRef ref,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -263,7 +269,7 @@ class AccountScreen extends ConsumerWidget {
             context,
             icon: Icons.language,
             title: loc.accountLanguage,
-            onTap: () => _showLanguageSelectionDialog(context),
+            onTap: () => _showLanguageSelectionDialog(context, ref),
           ),
           const Divider(),
           _buildListTile(
@@ -347,7 +353,7 @@ class AccountScreen extends ConsumerWidget {
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: AppColors.errorLight.withOpacity(0.1),
+            color: AppColors.errorLight.withAlpha((0.1 * 255).toInt()),
             shape: BoxShape.circle,
           ),
           child: Icon(Icons.logout, color: AppColors.errorLight),
@@ -386,7 +392,7 @@ class AccountScreen extends ConsumerWidget {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppColors.primaryLight.withOpacity(0.1),
+          color: AppColors.primaryLight.withAlpha((0.1 * 255).toInt()),
           shape: BoxShape.circle,
         ),
         child: Icon(icon, color: AppColors.primaryLight),
@@ -407,7 +413,7 @@ class AccountScreen extends ConsumerWidget {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppColors.primaryLight.withOpacity(0.1),
+          color: AppColors.primaryLight.withAlpha((0.1 * 255).toInt()),
           shape: BoxShape.circle,
         ),
         child: Icon(icon, color: AppColors.primaryLight),
@@ -422,7 +428,7 @@ class AccountScreen extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.1),
+        color: Colors.green.withAlpha((0.1 * 255).toInt()),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -440,7 +446,7 @@ class AccountScreen extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.orange.withOpacity(0.1),
+        color: Colors.orange.withAlpha((0.1 * 255).toInt()),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -457,8 +463,10 @@ class AccountScreen extends ConsumerWidget {
     );
   }
 
-  void _showLanguageSelectionDialog(BuildContext context) {
+  void _showLanguageSelectionDialog(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
+    final currentLocale = ref.read(localeNotifierProvider).languageCode;
+
     showDialog(
       context: context,
       builder:
@@ -467,27 +475,46 @@ class AccountScreen extends ConsumerWidget {
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ListTile(
-                  leading: const CircleAvatar(
-                    backgroundImage: AssetImage('assets/icons/en_flag.png'),
-                    radius: 15,
-                  ),
+                RadioListTile<String>(
+                  value: 'en',
+                  groupValue: currentLocale,
+                  onChanged: (value) {
+                    Navigator.of(context).pop();
+                    _changeLanguage(context, ref, const Locale('en'));
+                  },
                   title: Text(loc.languageEnglish),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    _changeLanguage(context, const Locale('en'));
-                  },
-                ),
-                ListTile(
-                  leading: const CircleAvatar(
-                    backgroundImage: AssetImage('assets/icons/vi_flag.png'),
-                    radius: 15,
+                  secondary: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: Image.asset(
+                        'assets/images/england-flag.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                  title: Text(loc.languageVietnamese),
-                  onTap: () {
+                ),
+                RadioListTile<String>(
+                  value: 'vi',
+                  groupValue: currentLocale,
+                  onChanged: (value) {
                     Navigator.of(context).pop();
-                    _changeLanguage(context, const Locale('vi'));
+                    _changeLanguage(context, ref, const Locale('vi'));
                   },
+                  title: Text(loc.languageVietnamese),
+                  secondary: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: Image.asset(
+                        'assets/images/vietnam-flag.webp',
+                        package: null,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -495,12 +522,9 @@ class AccountScreen extends ConsumerWidget {
     );
   }
 
-  void _changeLanguage(BuildContext context, Locale locale) {
-    final localeProvider = provider.Provider.of<LocaleProvider>(
-      context,
-      listen: false,
-    );
-    localeProvider.setLocale(locale);
+  void _changeLanguage(BuildContext context, WidgetRef ref, Locale locale) {
+    // Access the locale notifier using the WidgetRef from Riverpod
+    ref.read(localeNotifierProvider.notifier).setLocale(locale);
 
     // Show snackbar with language changed message
     final loc = AppLocalizations.of(context)!;

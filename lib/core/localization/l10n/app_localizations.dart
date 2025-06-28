@@ -525,13 +525,31 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Welcome, {name}'**
-  String accountWelcome(Object name);
+  String accountWelcome(String name);
 
   /// No description provided for @accountVersion.
   ///
   /// In en, this message translates to:
   /// **'Version {version}'**
   String accountVersion(String version);
+
+  /// No description provided for @accountGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get accountGender;
+
+  /// No description provided for @accountMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get accountMale;
+
+  /// No description provided for @accountFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get accountFemale;
 
   /// No description provided for @languageSelect.
   ///

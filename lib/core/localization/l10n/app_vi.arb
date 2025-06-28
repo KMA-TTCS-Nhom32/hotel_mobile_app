@@ -84,7 +84,24 @@
   "accountLogoutConfirm": "Bạn có chắc chắn muốn đăng xuất?",
   "accountLogoutProgress": "Đang đăng xuất...",
   "accountWelcome": "Xin chào, {name}",
+  "@accountWelcome": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "accountVersion": "Phiên bản {version}",
+  "@accountVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "accountGender": "Giới tính",
+  "accountMale": "Nam",
+  "accountFemale": "Nữ",
   
   "@@Language Selection": "--------------------------------",
   "languageSelect": "Chọn ngôn ngữ",

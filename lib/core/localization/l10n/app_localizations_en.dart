@@ -226,7 +226,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountLogoutProgress => 'Signing out...';
 
   @override
-  String accountWelcome(Object name) {
+  String accountWelcome(String name) {
     return 'Welcome, $name';
   }
 
@@ -234,6 +234,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String accountVersion(String version) {
     return 'Version $version';
   }
+
+  @override
+  String get accountGender => 'Gender';
+
+  @override
+  String get accountMale => 'Male';
+
+  @override
+  String get accountFemale => 'Female';
 
   @override
   String get languageSelect => 'Select Language';
