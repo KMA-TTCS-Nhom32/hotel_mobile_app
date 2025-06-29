@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/localization/index.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/logo_widgets.dart';
 import '../../controller/auth_controller.dart';
 import '../../controller/auth_state.dart';
 import '../widgets/login_form.dart';
@@ -31,9 +32,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+      appBar: LogoAppBar(
+        title: '',
+        centerTitle: true,
         actions: const [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -74,18 +75,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget _buildHeader(BuildContext context, AppLocalizations loc) {
     return Column(
       children: [
-        Icon(Icons.hotel, size: 80, color: AppColors.primaryLight),
+        const LargeLogo(height: 80),
         const SizedBox(height: 16),
         Text(
-          'AHomeVilla Hotel',
+          loc.loginWelcome,
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            color: AppColors.primaryLight,
+            color: AppColors.primaryDark,
           ),
         ),
         const SizedBox(height: 8),
         Text(
-          '${loc.loginWelcome} ${loc.loginSubtitle}',
+          loc.loginSubtitle,
           textAlign: TextAlign.center,
           style: Theme.of(
             context,
@@ -112,9 +113,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.errorLight.withOpacity(0.1),
+        color: AppColors.errorLight.withAlpha((0.1 * 255).toInt()),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.errorLight.withOpacity(0.3)),
+        border: Border.all(
+          color: AppColors.errorLight.withAlpha((0.3 * 255).toInt()),
+        ),
       ),
       child: Text(
         localizedMessage,

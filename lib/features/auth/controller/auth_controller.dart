@@ -1,7 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/models/login_credentials.dart';
+import '../data/models/register_response_dto.dart';
+import '../data/models/verify_response_dto.dart';
 import '../data/repositories/auth_repository.dart';
+import '../domain/entities/registration_data.dart';
+import '../domain/entities/verification_data.dart';
 import 'auth_state.dart';
 
 /// Provider for the auth controller
@@ -104,6 +108,58 @@ class AuthController extends StateNotifier<AuthState> {
       // Force logout even if server request failed
       await _authRepository.clearToken();
       state = const AuthUnauthenticatedState();
+    }
+  }
+
+  /// Register a new user
+  Future<RegisterResponseDto> register(
+    RegistrationData registrationData,
+  ) async {
+    try {
+      state = const AuthLoadingState();
+      final response = await _authRepository.register(registrationData);
+
+      // Store the response but keep the state as loading until verification is complete
+      state = AuthRegistrationState(userId: response.id);
+
+      return response;
+    } catch (e) {
+      state = AuthErrorState(
+        e is AuthException
+            ? e.message
+            : 'Registration failed. Please try again.',
+        e is Exception ? e : null,
+      );
+      rethrow;
+    }
+  }
+
+  /// Verify a user's email or phone
+  Future<VerifyResponseDto> verifyUser(
+    VerificationData verificationData,
+  ) async {
+    try {
+      state = const AuthLoadingState();
+      final response = await _authRepository.verifyUser(verificationData);
+
+      // After successful verification, set state back to unauthenticated so user can log in
+      if (response.success) {
+        state = const AuthUnauthenticatedState();
+      } else {
+        state = AuthErrorState(
+          'Verification failed: ${response.message ?? "Unknown error"}',
+        );
+      }
+
+      return response;
+    } catch (e) {
+      state = AuthErrorState(
+        e is AuthException
+            ? e.message
+            : 'Verification failed. Please try again.',
+        e is Exception ? e : null,
+      );
+      rethrow;
     }
   }
 }

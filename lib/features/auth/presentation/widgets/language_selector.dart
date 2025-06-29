@@ -18,12 +18,12 @@ class LanguageSelector extends ConsumerWidget {
       icon: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.language, color: AppColors.primaryLight, size: 20),
+          Icon(Icons.language, color: AppColors.onPrimaryLight, size: 20),
           const SizedBox(width: 4),
           Text(
             _getLanguageCode(currentLocale),
             style: TextStyle(
-              color: AppColors.primaryLight,
+              color: AppColors.onPrimaryLight,
               fontWeight: FontWeight.bold,
             ),
           ),

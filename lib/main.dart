@@ -8,6 +8,8 @@ import 'core/providers/app_providers.dart';
 import 'core/providers/locale_provider.dart';
 import 'features/navigation/presentation/pages/main_navigation_screen_riverpod.dart';
 import 'features/auth/presentation/pages/login_screen.dart';
+import 'features/auth/presentation/pages/register_screen.dart';
+import 'features/auth/presentation/pages/verification_screen.dart';
 import 'features/auth/controller/auth_state.dart';
 
 void main() async {
@@ -66,6 +68,11 @@ class MyApp extends ConsumerWidget {
       themeMode: ThemeMode.light, // Default to light theme
       // Home is determined by auth state
       home: _buildHomeScreen(authState),
+      routes: {
+        // Define routes for the app
+        LoginScreen.routeName: (context) => const LoginScreen(),
+        RegisterScreen.routeName: (context) => const RegisterScreen(),
+      },
     );
   }
 }

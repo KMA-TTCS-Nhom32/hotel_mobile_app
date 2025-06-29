@@ -3,10 +3,14 @@ import 'package:dio/dio.dart';
 import '../../../../core/services/api_service.dart';
 import '../../../../core/services/secure_storage_service.dart';
 import '../../domain/entities/auth_token.dart';
+import '../../domain/entities/registration_data.dart';
 import '../../domain/entities/user_profile.dart';
+import '../../domain/entities/verification_data.dart';
 import '../models/login_credentials.dart';
 import '../models/login_response_dto.dart';
+import '../models/register_response_dto.dart';
 import '../models/user_profile_dto.dart';
+import '../models/verify_response_dto.dart';
 import 'auth_repository.dart';
 
 /// Implementation of AuthRepository
@@ -110,6 +114,34 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> clearToken() async {
     await _secureStorage.clearAuthData();
+  }
+
+  @override
+  Future<RegisterResponseDto> register(RegistrationData data) async {
+    try {
+      final response = await _apiService.post(
+        '/auth/register',
+        data: data.toJson(),
+      );
+
+      return RegisterResponseDto.fromJson(response.data);
+    } catch (e) {
+      throw _handleAuthError(e);
+    }
+  }
+
+  @override
+  Future<VerifyResponseDto> verifyUser(VerificationData data) async {
+    try {
+      final response = await _apiService.post(
+        '/auth/verify-email',
+        data: data.toJson(),
+      );
+
+      return VerifyResponseDto.fromJson(response.data);
+    } catch (e) {
+      throw _handleAuthError(e);
+    }
   }
 
   @override

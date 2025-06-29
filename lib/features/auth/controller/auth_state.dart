@@ -53,6 +53,23 @@ class AuthUnauthenticatedState extends AuthState {
   const AuthUnauthenticatedState();
 }
 
+/// State during registration process (after registration, before verification)
+class AuthRegistrationState extends AuthState {
+  final String userId;
+
+  const AuthRegistrationState({required this.userId});
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AuthRegistrationState &&
+          runtimeType == other.runtimeType &&
+          userId == other.userId;
+
+  @override
+  int get hashCode => userId.hashCode;
+}
+
 /// Error state when authentication fails
 class AuthErrorState extends AuthState {
   final String message;

@@ -60,6 +60,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get validationEmptyPassword => 'Please enter your password.';
 
   @override
+  String get validationPhone => 'Please enter a valid phone number.';
+
+  @override
   String get registerTitle => 'Create Account';
 
   @override
@@ -85,6 +88,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get registerInProgress => 'Registration feature coming soon!';
+
+  @override
+  String get registerUsePhone => 'Tap the phone icon to register with a phone number instead';
+
+  @override
+  String get registerUseEmail => 'Tap the email icon to register with an email instead';
+
+  @override
+  String get verificationTitle => 'Verification';
+
+  @override
+  String verificationSubtitle(String identifier) {
+    return 'We\'ve sent a verification code to your $identifier';
+  }
+
+  @override
+  String get verificationEmailHeader => 'Verify Your Email';
+
+  @override
+  String get verificationPhoneHeader => 'Verify Your Phone Number';
+
+  @override
+  String get verificationSentTo => 'We\'ve sent a verification code to:';
+
+  @override
+  String get verificationCodeHint => 'Enter 6-digit code';
+
+  @override
+  String get verificationButton => 'Verify';
+
+  @override
+  String get verificationResend => 'Resend Code';
+
+  @override
+  String verificationResendIn(int seconds) {
+    return 'Resend Code in $seconds seconds';
+  }
+
+  @override
+  String get verificationSuccess => 'Verification successful! You can now log in.';
+
+  @override
+  String get verificationIncomplete => 'Please enter the complete verification code.';
+
+  @override
+  String get verificationFailed => 'Verification failed. Please check your code and try again.';
+
+  @override
+  String get verificationCodeResent => 'Verification code resent!';
+
+  @override
+  String get verificationInfo => 'Please complete the verification process. If you close the app, you\'ll need to login to receive a new code.';
 
   @override
   String get forgotPasswordTitle => 'Reset Your Password';

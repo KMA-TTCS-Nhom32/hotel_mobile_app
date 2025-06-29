@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/localization/index.dart';
 import '../../../../core/providers/locale_provider.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/logo_widgets.dart';
 import '../../../auth/controller/auth_controller.dart';
 import '../../../auth/controller/auth_state.dart';
 import '../../../auth/domain/entities/user_profile.dart';
@@ -31,15 +32,24 @@ class AccountScreen extends ConsumerWidget {
     // If user is authenticated but we don't have profile data yet
     if (authState is AuthAuthenticatedState) {
       return Scaffold(
-        appBar: AppBar(title: Text(loc.accountTitle)),
+        appBar: LogoAppBar(title: loc.accountTitle),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
 
     // Fallback - should not reach here as navigation should redirect to login
     return Scaffold(
-      appBar: AppBar(title: Text(loc.accountTitle)),
-      body: Center(child: Text(loc.accountSignIn)),
+      appBar: LogoAppBar(title: loc.accountTitle),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const LargeLogo(height: 80, useLight: true),
+            const SizedBox(height: 24),
+            Text(loc.accountSignIn),
+          ],
+        ),
+      ),
     );
   }
 
@@ -50,7 +60,7 @@ class AccountScreen extends ConsumerWidget {
     WidgetRef ref,
   ) {
     return Scaffold(
-      appBar: AppBar(title: Text(loc.accountTitle), centerTitle: true),
+      appBar: LogoAppBar(title: loc.accountTitle, centerTitle: true),
       body: RefreshIndicator(
         onRefresh: () async {
           await ref.read(authControllerProvider.notifier).refreshUserProfile();
@@ -371,13 +381,17 @@ class AccountScreen extends ConsumerWidget {
   }
 
   Widget _buildVersionInfo(BuildContext context, AppLocalizations loc) {
-    return Center(
-      child: Text(
-        loc.accountVersion('1.0.0'), // Version should be dynamic in real app
-        style: Theme.of(
-          context,
-        ).textTheme.bodySmall?.copyWith(color: AppColors.textSecondaryLight),
-      ),
+    return Column(
+      children: [
+        const LargeLogo(height: 40, useLight: true),
+        const SizedBox(height: 8),
+        Text(
+          loc.accountVersion('1.0.0'), // Version should be dynamic in real app
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall?.copyWith(color: AppColors.textSecondaryLight),
+        ),
+      ],
     );
   }
 
@@ -471,7 +485,13 @@ class AccountScreen extends ConsumerWidget {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text(loc.languageSelect),
+            title: Column(
+              children: [
+                Image.asset('assets/icons/logo-large-dark.png', height: 42),
+                const SizedBox(height: 16),
+                Text(loc.languageSelect),
+              ],
+            ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -568,27 +588,51 @@ class AccountScreen extends ConsumerWidget {
     );
 
     if (confirmed == true) {
-      // Show loading dialog
+      // Create a dialog controller that can be dismissed safely
+      BuildContext? dialogContext;
+
+      // Show loading dialog and capture its context
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder:
-            (context) => AlertDialog(
-              content: Row(
-                children: [
-                  const CircularProgressIndicator(),
-                  const SizedBox(width: 16),
-                  Text(loc.accountLogoutProgress),
-                ],
-              ),
+        builder: (BuildContext context) {
+          dialogContext = context;
+          return AlertDialog(
+            content: Row(
+              children: [
+                const CircularProgressIndicator(),
+                const SizedBox(width: 16),
+                Text(loc.accountLogoutProgress),
+              ],
             ),
+          );
+        },
       );
 
-      // Perform logout
-      await ref.read(authControllerProvider.notifier).logout();
+      try {
+        // Perform logout
+        await ref.read(authControllerProvider.notifier).logout();
 
-      // Close loading dialog
-      Navigator.of(context).pop();
+        // Safely close the dialog if it's still showing
+        if (dialogContext != null && Navigator.canPop(dialogContext!)) {
+          Navigator.of(dialogContext!).pop();
+        }
+      } catch (e) {
+        // Handle any errors during logout
+        if (dialogContext != null && Navigator.canPop(dialogContext!)) {
+          Navigator.of(dialogContext!).pop();
+        }
+
+        // Show error message
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Logout failed: ${e.toString()}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
     }
   }
 }

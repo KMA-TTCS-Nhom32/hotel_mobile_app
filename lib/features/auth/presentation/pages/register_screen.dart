@@ -1,128 +1,126 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/localization/index.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/logo_widgets.dart';
+import '../widgets/language_selector.dart';
+import '../../controller/auth_controller.dart';
+import '../../controller/auth_state.dart';
+import '../../domain/entities/registration_data.dart';
+import '../pages/verification_screen.dart';
+import '../widgets/registration_form.dart';
 
-/// Screen for user registration (placeholder)
-class RegisterScreen extends StatelessWidget {
+/// Screen for user registration
+class RegisterScreen extends ConsumerStatefulWidget {
   /// Route name for navigation
   static const routeName = '/register';
 
   const RegisterScreen({super.key});
 
   @override
+  ConsumerState<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends ConsumerState<RegisterScreen> {
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // Listen to auth state changes
+    ref.listen<AuthState>(authControllerProvider, (previous, current) {
+      // Handle loading state
+      if (current is AuthLoadingState) {
+        setState(() {
+          _isLoading = true;
+        });
+      }
+      // Handle registered state (show verification screen)
+      else if (current is AuthRegistrationState) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+      // Handle error state
+      else if (current is AuthErrorState) {
+        setState(() {
+          _isLoading = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(current.message), backgroundColor: Colors.red),
+        );
+      }
+      // Handle other states
+      else {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+
+    // Get localized strings
+    final loc = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Create Account'), centerTitle: true),
+      appBar: AppBar(
+        title: Text(loc.registerTitle),
+        centerTitle: true,
+        leadingWidth: 56,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+          tooltip: 'Back to Login',
+        ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: LanguageSelector(),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 16),
-            Icon(
-              Icons.app_registration,
-              size: 80,
-              color: AppColors.primaryLight,
-            ),
-            const SizedBox(height: 24),
-            Text(
-              'Join AHomeVilla Hotel',
-              style: Theme.of(
-                context,
-              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Create your account to enjoy exclusive benefits and personalized service',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: AppColors.textSecondaryLight),
-            ),
-            const SizedBox(height: 32),
-            // Placeholder form content
-            _buildPlaceholderForm(context),
-          ],
+        child: RegistrationForm(
+          isLoading: _isLoading,
+          onRegister: _handleRegister,
         ),
       ),
     );
   }
 
-  Widget _buildPlaceholderForm(BuildContext context) {
-    return Column(
-      children: [
-        // Name
-        TextField(
-          enabled: false,
-          decoration: InputDecoration(
-            labelText: 'Full Name',
-            prefixIcon: const Icon(Icons.person_outline),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-        const SizedBox(height: 16),
-        // Email
-        TextField(
-          enabled: false,
-          decoration: InputDecoration(
-            labelText: 'Email',
-            prefixIcon: const Icon(Icons.email_outlined),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-        const SizedBox(height: 16),
-        // Phone
-        TextField(
-          enabled: false,
-          decoration: InputDecoration(
-            labelText: 'Phone Number',
-            prefixIcon: const Icon(Icons.phone_outlined),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-        const SizedBox(height: 16),
-        // Password
-        TextField(
-          enabled: false,
-          decoration: InputDecoration(
-            labelText: 'Password',
-            prefixIcon: const Icon(Icons.lock_outline),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-        const SizedBox(height: 32),
-        // Register button
-        SizedBox(
-          width: double.infinity,
-          height: 55,
-          child: ElevatedButton(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Registration feature coming soon!'),
-                  duration: Duration(seconds: 2),
+  Future<void> _handleRegister(RegistrationData data) async {
+    try {
+      final response = await ref
+          .read(authControllerProvider.notifier)
+          .register(data);
+
+      if (mounted) {
+        // Navigate to verification screen
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder:
+                (context) => VerificationScreen(
+                  userId: response.id,
+                  isEmail: data.isEmail,
+                  identifier: data.isEmail ? data.identifier! : data.phone!,
                 ),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primaryLight,
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            child: const Text(
-              'Create Account',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
           ),
-        ),
-        const SizedBox(height: 16),
-        // Privacy policy note
-        Text(
-          'By creating an account, you agree to our Terms of Service and Privacy Policy',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: AppColors.textSecondaryLight, fontSize: 12),
-        ),
-      ],
-    );
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Registration failed. Please try again.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 }

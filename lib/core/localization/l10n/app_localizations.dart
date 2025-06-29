@@ -197,6 +197,12 @@ abstract class AppLocalizations {
   /// **'Please enter your password.'**
   String get validationEmptyPassword;
 
+  /// No description provided for @validationPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid phone number.'**
+  String get validationPhone;
+
   /// No description provided for @registerTitle.
   ///
   /// In en, this message translates to:
@@ -250,6 +256,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Registration feature coming soon!'**
   String get registerInProgress;
+
+  /// No description provided for @registerUsePhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the phone icon to register with a phone number instead'**
+  String get registerUsePhone;
+
+  /// No description provided for @registerUseEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the email icon to register with an email instead'**
+  String get registerUseEmail;
+
+  /// No description provided for @verificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification'**
+  String get verificationTitle;
+
+  /// No description provided for @verificationSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve sent a verification code to your {identifier}'**
+  String verificationSubtitle(String identifier);
+
+  /// No description provided for @verificationEmailHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Your Email'**
+  String get verificationEmailHeader;
+
+  /// No description provided for @verificationPhoneHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Your Phone Number'**
+  String get verificationPhoneHeader;
+
+  /// No description provided for @verificationSentTo.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve sent a verification code to:'**
+  String get verificationSentTo;
+
+  /// No description provided for @verificationCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 6-digit code'**
+  String get verificationCodeHint;
+
+  /// No description provided for @verificationButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verificationButton;
+
+  /// No description provided for @verificationResend.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Code'**
+  String get verificationResend;
+
+  /// No description provided for @verificationResendIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Code in {seconds} seconds'**
+  String verificationResendIn(int seconds);
+
+  /// No description provided for @verificationSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification successful! You can now log in.'**
+  String get verificationSuccess;
+
+  /// No description provided for @verificationIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the complete verification code.'**
+  String get verificationIncomplete;
+
+  /// No description provided for @verificationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification failed. Please check your code and try again.'**
+  String get verificationFailed;
+
+  /// No description provided for @verificationCodeResent.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code resent!'**
+  String get verificationCodeResent;
+
+  /// No description provided for @verificationInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Please complete the verification process. If you close the app, you\'ll need to login to receive a new code.'**
+  String get verificationInfo;
 
   /// No description provided for @forgotPasswordTitle.
   ///

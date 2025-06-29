@@ -60,6 +60,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get validationEmptyPassword => 'Vui lòng nhập mật khẩu của bạn.';
 
   @override
+  String get validationPhone => 'Vui lòng nhập số điện thoại hợp lệ.';
+
+  @override
   String get registerTitle => 'Tạo tài khoản';
 
   @override
@@ -85,6 +88,58 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get registerInProgress => 'Tính năng đăng ký sẽ sớm ra mắt!';
+
+  @override
+  String get registerUsePhone => 'Nhấn vào biểu tượng điện thoại để đăng ký bằng số điện thoại';
+
+  @override
+  String get registerUseEmail => 'Nhấn vào biểu tượng email để đăng ký bằng email';
+
+  @override
+  String get verificationTitle => 'Xác minh';
+
+  @override
+  String verificationSubtitle(String identifier) {
+    return 'Chúng tôi đã gửi mã xác minh đến $identifier';
+  }
+
+  @override
+  String get verificationEmailHeader => 'Xác minh email của bạn';
+
+  @override
+  String get verificationPhoneHeader => 'Xác minh số điện thoại của bạn';
+
+  @override
+  String get verificationSentTo => 'Chúng tôi đã gửi mã xác minh đến:';
+
+  @override
+  String get verificationCodeHint => 'Nhập mã 6 chữ số';
+
+  @override
+  String get verificationButton => 'Xác minh';
+
+  @override
+  String get verificationResend => 'Gửi lại mã';
+
+  @override
+  String verificationResendIn(int seconds) {
+    return 'Gửi lại mã sau $seconds giây';
+  }
+
+  @override
+  String get verificationSuccess => 'Xác minh thành công! Bây giờ bạn có thể đăng nhập.';
+
+  @override
+  String get verificationIncomplete => 'Vui lòng nhập đủ mã xác minh.';
+
+  @override
+  String get verificationFailed => 'Xác minh thất bại. Vui lòng kiểm tra mã và thử lại.';
+
+  @override
+  String get verificationCodeResent => 'Đã gửi lại mã xác minh!';
+
+  @override
+  String get verificationInfo => 'Vui lòng hoàn tất quá trình xác minh. Nếu bạn đóng ứng dụng, bạn cần đăng nhập lại để nhận mã mới.';
 
   @override
   String get forgotPasswordTitle => 'Đặt lại mật khẩu';
