@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/localization/index.dart';
 import '../../../../core/providers/navigation_provider.dart';
 import '../../../home/presentation/pages/home_page_riverpod.dart';
 import '../../../promotions/presentation/pages/promotions_page.dart';
@@ -41,6 +42,8 @@ class MainNavigationScreenRiverpod extends ConsumerWidget {
     MainTab currentTab,
     WidgetRef ref,
   ) {
+    final loc = AppLocalizations.of(context)!;
+
     return BottomNavigationBar(
       currentIndex: currentTab.index,
       onTap:
@@ -51,30 +54,30 @@ class MainNavigationScreenRiverpod extends ConsumerWidget {
       selectedItemColor: Theme.of(context).primaryColor,
       unselectedItemColor: Colors.grey,
       items: [
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
-          activeIcon: Icon(Icons.home),
-          label: 'Home',
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.home_outlined),
+          activeIcon: const Icon(Icons.home),
+          label: loc.navHome,
         ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.local_offer_outlined),
-          activeIcon: Icon(Icons.local_offer),
-          label: 'Promotions',
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.local_offer_outlined),
+          activeIcon: const Icon(Icons.local_offer),
+          label: loc.navPromos,
         ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.bookmark_outline),
-          activeIcon: Icon(Icons.bookmark),
-          label: 'Bookings',
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.bookmark_outline),
+          activeIcon: const Icon(Icons.bookmark),
+          label: loc.navBookings,
         ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.card_giftcard_outlined),
-          activeIcon: Icon(Icons.card_giftcard),
-          label: 'Offers',
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.card_giftcard_outlined),
+          activeIcon: const Icon(Icons.card_giftcard),
+          label: loc.navOffers,
         ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline),
-          activeIcon: Icon(Icons.person),
-          label: 'Account',
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.person_outline),
+          activeIcon: const Icon(Icons.person),
+          label: loc.navAccount,
         ),
       ],
     );
