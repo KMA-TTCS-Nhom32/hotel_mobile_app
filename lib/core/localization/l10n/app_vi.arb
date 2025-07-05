@@ -1,6 +1,60 @@
 {
   "@@locale": "vi",
   "appTitle": "Đặt Phòng Khách Sạn",
+
+  "@@Auth": "--------------------------------",
+  "loginWelcome": "Chào mừng trở lại!",
+  "loginSubtitle": "Vui lòng đăng nhập vào tài khoản của bạn",
+  "loginEmailPhonePlaceholder": "Email hoặc Số điện thoại",
+  "loginPasswordPlaceholder": "Mật khẩu",
+  "loginButton": "Đăng nhập",
+  "loginForgotPassword": "Quên mật khẩu?",
+  "loginNoAccount": "Bạn chưa có tài khoản?",
+  "loginSignUp": "Đăng ký",
+  "loginInvalidCredentials": "Email/số điện thoại hoặc mật khẩu không hợp lệ.",
+  "loginNetworkError": "Lỗi kết nối. Vui lòng kiểm tra lại kết nối của bạn.",
+  "loginGenericError": "Đăng nhập thất bại. Vui lòng thử lại.",
+  "validationRequired": "Trường này không được để trống.",
+  "validationEmailPhone": "Vui lòng nhập email hoặc số điện thoại hợp lệ.",
+  "validationPassword": "Mật khẩu phải có ít nhất 8 ký tự với ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt.",
+  "validationEmptyEmail": "Vui lòng nhập email hoặc số điện thoại của bạn.",
+  "validationEmptyPassword": "Vui lòng nhập mật khẩu của bạn.",
+  "validationPhone": "Vui lòng nhập số điện thoại hợp lệ.",
+  
+  "registerTitle": "Tạo tài khoản",
+  "registerSubtitle": "Tạo tài khoản để nhận những ưu đãi đặc biệt",
+  "registerFullName": "Họ và tên",
+  "registerEmail": "Email",
+  "registerPhone": "Số điện thoại",
+  "registerPassword": "Mật khẩu",
+  "registerButton": "Tạo tài khoản",
+  "registerTerms": "Bằng việc tạo tài khoản, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi",
+  "registerInProgress": "Tính năng đăng ký sẽ sớm ra mắt!",
+  "registerUsePhone": "Nhấn vào biểu tượng điện thoại để đăng ký bằng số điện thoại",
+  "registerUseEmail": "Nhấn vào biểu tượng email để đăng ký bằng email",
+  "registerFailed": "Đăng ký thất bại. Vui lòng thử lại.",
+  "registerUserExists": "Email hoặc số điện thoại đã được đăng ký.",
+
+  "verificationTitle": "Xác minh",
+  "verificationSubtitle": "Chúng tôi đã gửi mã xác minh đến {identifier}",
+  "verificationEmailHeader": "Xác minh email của bạn",
+  "verificationPhoneHeader": "Xác minh số điện thoại của bạn",
+  "verificationSentTo": "Chúng tôi đã gửi mã xác minh đến:",
+  "verificationCodeHint": "Nhập mã 6 chữ số",
+  "verificationButton": "Xác minh",
+  "verificationResend": "Gửi lại mã",
+  "verificationResendIn": "Gửi lại mã sau {seconds} giây",
+  "verificationSuccess": "Xác minh thành công! Bây giờ bạn có thể đăng nhập.",
+  "verificationIncomplete": "Vui lòng nhập đủ mã xác minh.",
+  "verificationFailed": "Xác minh thất bại. Vui lòng kiểm tra mã và thử lại.",
+  "verificationCodeResent": "Đã gửi lại mã xác minh!",
+  "verificationInfo": "Vui lòng hoàn tất quá trình xác minh. Nếu bạn đóng ứng dụng, bạn cần đăng nhập lại để nhận mã mới.",
+  
+  "forgotPasswordTitle": "Đặt lại mật khẩu",
+  "forgotPasswordSubtitle": "Nhập email hoặc số điện thoại và chúng tôi sẽ gửi cho bạn mã xác nhận",
+  "forgotPasswordEmailPhone": "Email hoặc Số điện thoại",
+  "forgotPasswordButton": "Gửi mã đặt lại",
+  "forgotPasswordInProgress": "Tính năng đặt lại mật khẩu sẽ sớm ra mắt!",
   
   "@@Navigation": "--------------------------------",
   "navHome": "Trang chủ",
@@ -30,6 +84,12 @@
   "accountSignIn": "Đăng nhập hoặc Đăng ký",
   "accountSignInMsg": "Đăng nhập để truy cập các đặt phòng, khách sạn đã lưu và ưu đãi cá nhân.",
   "accountPersonalInfo": "Thông tin cá nhân",
+  "accountEmail": "Email",
+  "accountPhone": "Số điện thoại",
+  "accountRole": "Trạng thái thành viên",
+  "accountVerified": "Đã xác minh",
+  "accountUnverified": "Chưa xác minh",
+  "accountEditProfile": "Sửa hồ sơ",
   "accountPaymentMethods": "Phương thức thanh toán",
   "accountLoyaltyProgram": "Chương trình khách hàng thân thiết",
   "accountBookingHistory": "Lịch sử đặt phòng",
@@ -41,7 +101,27 @@
   "accountPrivacyPolicy": "Chính sách bảo mật",
   "accountTerms": "Điều khoản & Điều kiện",
   "accountSignOut": "Đăng xuất",
+  "accountLogoutConfirm": "Bạn có chắc chắn muốn đăng xuất?",
+  "accountLogoutProgress": "Đang đăng xuất...",
+  "accountWelcome": "Xin chào, {name}",
+  "@accountWelcome": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "accountVersion": "Phiên bản {version}",
+  "@accountVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "accountGender": "Giới tính",
+  "accountMale": "Nam",
+  "accountFemale": "Nữ",
   
   "@@Language Selection": "--------------------------------",
   "languageSelect": "Chọn ngôn ngữ",
