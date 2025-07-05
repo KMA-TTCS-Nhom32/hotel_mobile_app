@@ -32,6 +32,8 @@
   "registerInProgress": "Registration feature coming soon!",
   "registerUsePhone": "Tap the phone icon to register with a phone number instead",
   "registerUseEmail": "Tap the email icon to register with an email instead",
+  "registerFailed": "Registration failed. Please try again.",
+  "registerUserExists": "User with this email or phone already exists.",
   
   "verificationTitle": "Verification",
   "verificationSubtitle": "We've sent a verification code to your {identifier}",

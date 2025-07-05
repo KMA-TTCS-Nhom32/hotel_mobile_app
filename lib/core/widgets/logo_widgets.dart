@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants/app_assets.dart';
 import '../theme/app_colors.dart';
 
 /// Custom AppBar with logo for the application
@@ -42,9 +43,10 @@ class LogoAppBar extends StatelessWidget implements PreferredSizeWidget {
               ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(
-                  useLight
-                      ? 'assets/icons/logo-dark.png'
-                      : 'assets/icons/logo-light.png',
+                  useLight ? AppAssets.logoDark : AppAssets.logoLight,
+                  errorBuilder:
+                      (context, error, stackTrace) =>
+                          const Icon(Icons.error, size: 24),
                 ),
               )
               : null,
@@ -66,18 +68,18 @@ class LargeLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      useLight
-          ? 'assets/icons/logo-large-light.png'
-          : 'assets/icons/logo-large-dark.png',
+      useLight ? AppAssets.logoLargeLight : AppAssets.logoLargeDark,
       height: height,
       fit: BoxFit.contain,
+      errorBuilder:
+          (context, error, stackTrace) => const Icon(Icons.error, size: 24),
     );
   }
 }
 
 /// Extension on Scaffold to easily create a scaffold with logo app bar
 // Extension methods for LogoAppBar
-extension LogoAppBarExtensions on LogoAppBar {
+extension LogoAppBarExtension on LogoAppBar {
   /// Creates a scaffold with this logo app bar
   Scaffold scaffold({
     required Widget body,

@@ -269,6 +269,18 @@ abstract class AppLocalizations {
   /// **'Tap the email icon to register with an email instead'**
   String get registerUseEmail;
 
+  /// No description provided for @registerFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration failed. Please try again.'**
+  String get registerFailed;
+
+  /// No description provided for @registerUserExists.
+  ///
+  /// In en, this message translates to:
+  /// **'User with this email or phone already exists.'**
+  String get registerUserExists;
+
   /// No description provided for @verificationTitle.
   ///
   /// In en, this message translates to:

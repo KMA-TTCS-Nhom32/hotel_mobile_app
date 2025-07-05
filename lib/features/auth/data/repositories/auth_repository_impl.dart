@@ -6,6 +6,7 @@ import '../../domain/entities/auth_token.dart';
 import '../../domain/entities/registration_data.dart';
 import '../../domain/entities/user_profile.dart';
 import '../../domain/entities/verification_data.dart';
+import '../../domain/exceptions/auth_exception.dart';
 import '../models/login_credentials.dart';
 import '../models/login_response_dto.dart';
 import '../models/register_response_dto.dart';
@@ -119,13 +120,23 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<RegisterResponseDto> register(RegistrationData data) async {
     try {
+      // Debug log for registration request
+      print(
+        'Registering user with ${data.isEmail ? "email" : "phone"}: ${data.isEmail ? data.identifier : data.phone}',
+      );
+
       final response = await _apiService.post(
         '/auth/register',
         data: data.toJson(),
       );
 
+      // Debug log for successful registration
+      print('Registration successful: ${response.data}');
+
       return RegisterResponseDto.fromJson(response.data);
     } catch (e) {
+      // Debug log for registration error
+      print('Registration error: $e');
       throw _handleAuthError(e);
     }
   }
@@ -134,12 +145,43 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<VerifyResponseDto> verifyUser(VerificationData data) async {
     try {
       final response = await _apiService.post(
-        '/auth/verify-email',
+        data.isEmail ? '/auth/verify-email' : '/auth/verify-phone',
         data: data.toJson(),
       );
 
-      return VerifyResponseDto.fromJson(response.data);
+      // Debug the response to troubleshoot parsing issues
+      print('Verification response: ${response.data}');
+
+      final verifyResponse = VerifyResponseDto.fromJson(response.data);
+      // Extra check to ensure success is properly set
+      if (response.statusCode == 200) {
+        return VerifyResponseDto(
+          success: true,
+          userId: verifyResponse.userId,
+          message: verifyResponse.message ?? 'Verification successful',
+        );
+      }
+
+      return verifyResponse;
     } catch (e) {
+      print('Verification error: $e');
+      // Special handling for 422 errors which might indicate the code was already used
+      if (e is ValidationException && e.message.contains('already verified')) {
+        // Return a successful response with a custom message
+        return VerifyResponseDto(
+          success: true,
+          userId: data.userId,
+          message: 'Account already verified. You can now login.',
+        );
+      } else if (e is ServerException &&
+          e.message.contains('already verified')) {
+        // Return a successful response with a custom message
+        return VerifyResponseDto(
+          success: true,
+          userId: data.userId,
+          message: 'Account already verified. You can now login.',
+        );
+      }
       throw _handleAuthError(e);
     }
   }
@@ -163,6 +205,14 @@ class AuthRepositoryImpl implements AuthRepository {
       return AuthException(
         'Access denied. Please check your account permissions.',
       );
+    } else if (error is ConflictException) {
+      // Handle specific conflict errors
+      if (error.message.contains('userAlreadyExists')) {
+        return AuthException('User with this email or phone already exists.');
+      }
+      return AuthException(error.message);
+    } else if (error is ValidationException) {
+      return AuthException(error.message);
     } else if (error is TimeoutException || error is NetworkException) {
       return AuthException(error.message);
     } else if (error is ServerException) {
@@ -173,10 +223,4 @@ class AuthRepositoryImpl implements AuthRepository {
       return AuthException('Authentication failed. Please try again.');
     }
   }
-}
-
-/// Custom exception for authentication errors
-class AuthException implements Exception {
-  final String message;
-  AuthException(this.message);
 }

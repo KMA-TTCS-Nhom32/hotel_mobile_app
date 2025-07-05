@@ -82,8 +82,9 @@ class AuthErrorState extends AuthState {
       identical(this, other) ||
       other is AuthErrorState &&
           runtimeType == other.runtimeType &&
-          message == other.message;
+          message == other.message &&
+          exception == other.exception;
 
   @override
-  int get hashCode => message.hashCode;
+  int get hashCode => Object.hash(message, exception);
 }

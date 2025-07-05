@@ -8,6 +8,7 @@ import '../widgets/language_selector.dart';
 import '../../controller/auth_controller.dart';
 import '../../controller/auth_state.dart';
 import '../../domain/entities/registration_data.dart';
+import '../../domain/exceptions/auth_exception.dart';
 import '../pages/verification_screen.dart';
 import '../widgets/registration_form.dart';
 
@@ -24,6 +25,7 @@ class RegisterScreen extends ConsumerStatefulWidget {
 
 class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   bool _isLoading = false;
+  String? _errorMessage;
 
   @override
   void initState() {
@@ -50,10 +52,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       else if (current is AuthErrorState) {
         setState(() {
           _isLoading = false;
+          _errorMessage = current.message;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(current.message), backgroundColor: Colors.red),
-        );
       }
       // Handle other states
       else {
@@ -87,6 +87,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         padding: const EdgeInsets.all(24),
         child: RegistrationForm(
           isLoading: _isLoading,
+          errorMessage: _errorMessage,
           onRegister: _handleRegister,
         ),
       ),
@@ -94,6 +95,11 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   }
 
   Future<void> _handleRegister(RegistrationData data) async {
+    // Clear any previous error messages
+    setState(() {
+      _errorMessage = null;
+    });
+
     try {
       final response = await ref
           .read(authControllerProvider.notifier)
@@ -114,12 +120,24 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Registration failed. Please try again.'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        final loc = AppLocalizations.of(context)!;
+        // Display specific error message if it's an AuthException
+        String errorMessage = loc.registerFailed;
+
+        if (e is AuthException) {
+          // Map common error messages to localized strings
+          if (e.message.contains("already exists")) {
+            errorMessage = loc.registerUserExists;
+          } else {
+            errorMessage = e.message;
+          }
+        }
+
+        print('Registration error in UI: $e');
+
+        setState(() {
+          _errorMessage = errorMessage;
+        });
       }
     }
   }

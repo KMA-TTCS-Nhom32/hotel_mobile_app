@@ -6,6 +6,7 @@ import '../data/models/verify_response_dto.dart';
 import '../data/repositories/auth_repository.dart';
 import '../domain/entities/registration_data.dart';
 import '../domain/entities/verification_data.dart';
+import '../domain/exceptions/auth_exception.dart';
 import 'auth_state.dart';
 
 /// Provider for the auth controller
@@ -142,10 +143,16 @@ class AuthController extends StateNotifier<AuthState> {
       state = const AuthLoadingState();
       final response = await _authRepository.verifyUser(verificationData);
 
+      print(
+        'Auth controller received verification response: ${response.success} - ${response.message}',
+      );
+
       // After successful verification, set state back to unauthenticated so user can log in
       if (response.success) {
         state = const AuthUnauthenticatedState();
+        print('Setting state to unauthenticated after successful verification');
       } else {
+        print('Setting state to error after failed verification');
         state = AuthErrorState(
           'Verification failed: ${response.message ?? "Unknown error"}',
         );
@@ -153,6 +160,7 @@ class AuthController extends StateNotifier<AuthState> {
 
       return response;
     } catch (e) {
+      print('Exception in auth controller during verification: $e');
       state = AuthErrorState(
         e is AuthException
             ? e.message
@@ -162,10 +170,4 @@ class AuthController extends StateNotifier<AuthState> {
       rethrow;
     }
   }
-}
-
-/// Custom exception for auth controller errors
-class AuthException implements Exception {
-  final String message;
-  AuthException(this.message);
 }

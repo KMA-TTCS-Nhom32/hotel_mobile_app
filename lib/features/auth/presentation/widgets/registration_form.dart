@@ -12,11 +12,13 @@ import '../../domain/entities/registration_data.dart';
 class RegistrationForm extends ConsumerStatefulWidget {
   final bool isLoading;
   final void Function(RegistrationData data) onRegister;
+  final String? errorMessage;
 
   const RegistrationForm({
     super.key,
     required this.isLoading,
     required this.onRegister,
+    this.errorMessage,
   });
 
   @override
@@ -66,6 +68,31 @@ class _RegistrationFormState extends ConsumerState<RegistrationForm> {
                     ),
                   ),
                   const SizedBox(height: 8),
+
+                  // Error message display (if any)
+                  if (widget.errorMessage != null) ...[
+                    const SizedBox(height: 16),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: AppColors.errorLight.withAlpha(
+                          (0.1 * 255).toInt(),
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: AppColors.errorLight.withAlpha(
+                            (0.3 * 255).toInt(),
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        widget.errorMessage!,
+                        style: TextStyle(color: AppColors.errorLight),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
                   Text(
                     loc.registerSubtitle,
                     style: Theme.of(

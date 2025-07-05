@@ -42,7 +42,12 @@ class MainNavigationScreenRiverpod extends ConsumerWidget {
     MainTab currentTab,
     WidgetRef ref,
   ) {
-    final loc = AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context);
+
+    if (loc == null) {
+      // Fallback to default English labels or handle error
+      throw FlutterError('Localization not initialized');
+    }
 
     return BottomNavigationBar(
       currentIndex: currentTab.index,

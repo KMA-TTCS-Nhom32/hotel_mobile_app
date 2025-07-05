@@ -23,10 +23,57 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
+  bool _isLoading = false;
+  String? _errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    // Listen to auth state changes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.listen(authControllerProvider, (_, state) {
+        _handleAuthStateChanges(state);
+      });
+    });
+  }
+
+  void _handleAuthStateChanges(AuthState state) {
+    if (state is AuthLoadingState) {
+      setState(() {
+        _isLoading = true;
+        _errorMessage = null;
+      });
+    } else if (state is AuthErrorState) {
+      setState(() {
+        _isLoading = false;
+        _errorMessage = _getLocalizedErrorMessage(state.message);
+      });
+    } else if (state is AuthAuthenticatedState) {
+      // Successfully logged in - navigation handled by app router
+      setState(() {
+        _isLoading = false;
+        _errorMessage = null;
+      });
+    }
+  }
+
+  String _getLocalizedErrorMessage(String message) {
+    final loc = AppLocalizations.of(context)!;
+
+    // Map error messages to localized versions
+    if (message.contains('Invalid email/phone or password')) {
+      return loc.loginInvalidCredentials;
+    } else if (message.contains('Network error') ||
+        message.contains('connection')) {
+      return loc.loginNetworkError;
+    } else if (message.contains('Login failed')) {
+      return loc.loginGenericError;
+    }
+    return message;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authControllerProvider);
-    final isLoading = authState is AuthLoadingState;
     // Get localized strings
     final loc = AppLocalizations.of(context)!;
 
@@ -52,12 +99,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               children: [
                 _buildHeader(context, loc),
                 const SizedBox(height: 40),
-                // Display error message if authentication fails
-                if (authState is AuthErrorState)
-                  _buildErrorMessage(authState.message),
-                const SizedBox(height: 24),
-                // Login form
-                LoginForm(isLoading: isLoading, onLogin: _handleLogin),
+                // Login form with inline error message
+                LoginForm(
+                  isLoading: _isLoading,
+                  onLogin: _handleLogin,
+                  errorMessage: _errorMessage,
+                ),
                 const SizedBox(height: 16),
                 // Forgot password link
                 _buildForgotPasswordLink(context, loc),
@@ -96,36 +143,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  Widget _buildErrorMessage(String message) {
-    final loc = AppLocalizations.of(context)!;
-
-    // Try to map error messages to localized versions
-    String localizedMessage = message;
-    if (message.contains('Invalid email/phone or password')) {
-      localizedMessage = loc.loginInvalidCredentials;
-    } else if (message.contains('Network error') ||
-        message.contains('connection')) {
-      localizedMessage = loc.loginNetworkError;
-    } else if (message.contains('Login failed')) {
-      localizedMessage = loc.loginGenericError;
-    }
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.errorLight.withAlpha((0.1 * 255).toInt()),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: AppColors.errorLight.withAlpha((0.3 * 255).toInt()),
-        ),
-      ),
-      child: Text(
-        localizedMessage,
-        style: TextStyle(color: AppColors.errorLight),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
+  // Removed unused method
 
   Widget _buildForgotPasswordLink(BuildContext context, AppLocalizations loc) {
     return Align(

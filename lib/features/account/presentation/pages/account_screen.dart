@@ -381,17 +381,23 @@ class AccountScreen extends ConsumerWidget {
   }
 
   Widget _buildVersionInfo(BuildContext context, AppLocalizations loc) {
-    return Column(
-      children: [
-        const LargeLogo(height: 40, useLight: true),
-        const SizedBox(height: 8),
-        Text(
-          loc.accountVersion('1.0.0'), // Version should be dynamic in real app
-          style: Theme.of(
-            context,
-          ).textTheme.bodySmall?.copyWith(color: AppColors.textSecondaryLight),
-        ),
-      ],
+    return Container(
+      color: AppColors.surfaceDark,
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Column(
+        children: [
+          const LargeLogo(height: 40, useLight: true),
+          const SizedBox(height: 8),
+          Text(
+            loc.accountVersion(
+              '1.0.0',
+            ), // Version should be dynamic in real app
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: AppColors.textSecondaryLight,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

@@ -96,6 +96,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get registerUseEmail => 'Nhấn vào biểu tượng email để đăng ký bằng email';
 
   @override
+  String get registerFailed => 'Đăng ký thất bại. Vui lòng thử lại.';
+
+  @override
+  String get registerUserExists => 'Email hoặc số điện thoại đã được đăng ký.';
+
+  @override
   String get verificationTitle => 'Xác minh';
 
   @override

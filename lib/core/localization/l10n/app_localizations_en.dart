@@ -96,6 +96,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get registerUseEmail => 'Tap the email icon to register with an email instead';
 
   @override
+  String get registerFailed => 'Registration failed. Please try again.';
+
+  @override
+  String get registerUserExists => 'User with this email or phone already exists.';
+
+  @override
   String get verificationTitle => 'Verification';
 
   @override

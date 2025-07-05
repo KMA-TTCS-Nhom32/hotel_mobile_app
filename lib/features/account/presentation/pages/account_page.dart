@@ -38,7 +38,9 @@ class AccountPage extends ConsumerWidget {
                 Icon(
                   Icons.account_circle,
                   size: 80,
-                  color: Theme.of(context).primaryColor.withOpacity(0.5),
+                  color: Theme.of(
+                    context,
+                  ).primaryColor.withAlpha((0.5 * 255).toInt()),
                 ),
                 const SizedBox(height: 24),
                 Text(

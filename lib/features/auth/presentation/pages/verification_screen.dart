@@ -98,31 +98,50 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
         isEmail: widget.isEmail,
       );
 
+      print(
+        'Submitting verification for ${widget.isEmail ? "email" : "phone"}: ${widget.identifier}',
+      );
+      print('User ID: ${widget.userId}, Code: $code');
+
       final response = await ref
           .read(authControllerProvider.notifier)
           .verifyUser(verificationData);
 
+      print(
+        'Verification response: success=${response.success}, message=${response.message}',
+      );
+
       if (response.success) {
         // Show success message and navigate to login
         if (mounted) {
+          // Show the success message from the server if available, otherwise use the default
+          String successMessage = response.message ?? loc.verificationSuccess;
+          print('Showing success message: $successMessage');
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(loc.verificationSuccess),
+              content: Text(successMessage),
               backgroundColor: Colors.green,
             ),
           );
 
-          // Navigate to login screen
-          Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+          // Navigate to login screen after a brief delay to ensure the user sees the success message
+          Future.delayed(const Duration(seconds: 1), () {
+            if (mounted) {
+              Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+            }
+          });
         }
       } else {
+        print('Verification failed: ${response.message}');
         setState(() {
           _errorMessage = response.message ?? loc.verificationFailed;
         });
       }
     } catch (e) {
+      print('Exception during verification: $e');
       setState(() {
-        _errorMessage = loc.verificationFailed;
+        _errorMessage = 'Error: ${e.toString()}';
       });
     } finally {
       setState(() {

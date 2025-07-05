@@ -32,6 +32,8 @@
   "registerInProgress": "Tính năng đăng ký sẽ sớm ra mắt!",
   "registerUsePhone": "Nhấn vào biểu tượng điện thoại để đăng ký bằng số điện thoại",
   "registerUseEmail": "Nhấn vào biểu tượng email để đăng ký bằng email",
+  "registerFailed": "Đăng ký thất bại. Vui lòng thử lại.",
+  "registerUserExists": "Email hoặc số điện thoại đã được đăng ký.",
 
   "verificationTitle": "Xác minh",
   "verificationSubtitle": "Chúng tôi đã gửi mã xác minh đến {identifier}",

@@ -9,8 +9,14 @@ import '../../../../core/theme/app_colors.dart';
 class LoginForm extends StatefulWidget {
   final bool isLoading;
   final void Function(String emailOrPhone, String password) onLogin;
+  final String? errorMessage;
 
-  const LoginForm({super.key, required this.isLoading, required this.onLogin});
+  const LoginForm({
+    super.key,
+    required this.isLoading,
+    required this.onLogin,
+    this.errorMessage,
+  });
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -39,36 +45,32 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // // App logo at the top
-          // Center(
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(bottom: 32.0),
-          //     child: Column(
-          //       children: [
-          //         const LargeLogo(height: 80, useLight: true),
-          //         const SizedBox(height: 16),
-          //         Text(
-          //           loc.loginWelcome,
-          //           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-          //             fontWeight: FontWeight.bold,
-          //           ),
-          //         ),
-          //         const SizedBox(height: 8),
-          //         Text(
-          //           loc.loginSubtitle,
-          //           style: Theme.of(
-          //             context,
-          //           ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
           // Email/Phone field
           _buildEmailPhoneField(loc),
           const SizedBox(height: 16),
           // Password field
           _buildPasswordField(loc),
+
+          // Error message display
+          if (widget.errorMessage != null) ...[
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.errorLight.withAlpha((0.1 * 255).toInt()),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: AppColors.errorLight.withAlpha((0.3 * 255).toInt()),
+                ),
+              ),
+              child: Text(
+                widget.errorMessage!,
+                style: TextStyle(color: AppColors.errorLight),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+
           const SizedBox(height: 24),
           // Login button
           _buildLoginButton(loc),

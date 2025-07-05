@@ -112,6 +112,32 @@ class ApiService {
       );
     } else if (error.response?.statusCode == 404) {
       return NotFoundException('The requested resource was not found.');
+    } else if (error.response?.statusCode == 409) {
+      // Handle conflict errors (e.g., user already exists)
+      final dynamic data = error.response!.data;
+      String message = 'Resource conflict';
+      if (data is Map<String, dynamic>) {
+        final errorMessage = data['message'];
+        if (errorMessage is List) {
+          message = errorMessage.join(', ');
+        } else if (errorMessage is String) {
+          message = errorMessage;
+        }
+      }
+      return ConflictException(message);
+    } else if (error.response?.statusCode == 422) {
+      // Handle validation errors (e.g., already verified account)
+      final dynamic data = error.response!.data;
+      String message = 'Validation error';
+      if (data is Map<String, dynamic>) {
+        final errorMessage = data['message'];
+        if (errorMessage is List) {
+          message = errorMessage.join(', ');
+        } else if (errorMessage is String) {
+          message = errorMessage;
+        }
+      }
+      return ValidationException(message);
     } else if (error.response != null && error.response!.data != null) {
       // Try to extract error message from response
       final dynamic data = error.response!.data;
@@ -173,4 +199,16 @@ class NotFoundException implements Exception {
 class ServerException implements Exception {
   final String message;
   ServerException(this.message);
+}
+
+/// Custom exception for validation errors (422)
+class ValidationException implements Exception {
+  final String message;
+  ValidationException(this.message);
+}
+
+/// Custom exception for conflict errors (409)
+class ConflictException implements Exception {
+  final String message;
+  ConflictException(this.message);
 }
