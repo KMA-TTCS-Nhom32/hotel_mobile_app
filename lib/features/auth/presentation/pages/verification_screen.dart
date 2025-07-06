@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/localization/index.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/utils/logger.dart';
 import '../widgets/language_selector.dart';
 import '../../controller/auth_controller.dart';
 import '../../domain/entities/verification_data.dart';
@@ -85,6 +86,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
     }
 
     final code = _code;
+    final logger = AppLogger();
 
     setState(() {
       _isLoading = true;
@@ -98,16 +100,16 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
         isEmail: widget.isEmail,
       );
 
-      print(
+      logger.d(
         'Submitting verification for ${widget.isEmail ? "email" : "phone"}: ${widget.identifier}',
       );
-      print('User ID: ${widget.userId}, Code: $code');
+      logger.d('User ID: ${widget.userId}, Code: $code');
 
       final response = await ref
           .read(authControllerProvider.notifier)
           .verifyUser(verificationData);
 
-      print(
+      logger.d(
         'Verification response: success=${response.success}, message=${response.message}',
       );
 
@@ -116,7 +118,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
         if (mounted) {
           // Show the success message from the server if available, otherwise use the default
           String successMessage = response.message ?? loc.verificationSuccess;
-          print('Showing success message: $successMessage');
+          logger.d('Showing success message: $successMessage');
 
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -133,13 +135,13 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
           });
         }
       } else {
-        print('Verification failed: ${response.message}');
+        logger.w('Verification failed: ${response.message}');
         setState(() {
           _errorMessage = response.message ?? loc.verificationFailed;
         });
       }
     } catch (e) {
-      print('Exception during verification: $e');
+      logger.e('Exception during verification', e);
       setState(() {
         _errorMessage = 'Error: ${e.toString()}';
       });

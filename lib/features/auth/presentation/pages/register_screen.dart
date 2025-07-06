@@ -27,6 +27,18 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   bool _isLoading = false;
   String? _errorMessage;
 
+  String _mapAuthError(AuthException error, AppLocalizations loc) {
+    // If using error codes as suggested in AuthException enhancement
+    switch (error.message) {
+      case 'userAlreadyExists':
+        return loc.registerUserExists;
+      case 'NETWORK_ERROR':
+        return loc.loginNetworkError;
+      default:
+        return error.message;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -125,15 +137,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         String errorMessage = loc.registerFailed;
 
         if (e is AuthException) {
-          // Map common error messages to localized strings
-          if (e.message.contains("already exists")) {
-            errorMessage = loc.registerUserExists;
-          } else {
-            errorMessage = e.message;
-          }
+          errorMessage = _mapAuthError(e, loc);
         }
 
-        print('Registration error in UI: $e');
+        // print('Registration error in UI: $e');
 
         setState(() {
           _errorMessage = errorMessage;

@@ -150,9 +150,9 @@ class AuthController extends StateNotifier<AuthState> {
       // After successful verification, set state back to unauthenticated so user can log in
       if (response.success) {
         state = const AuthUnauthenticatedState();
-        print('Setting state to unauthenticated after successful verification');
+        // print('Setting state to unauthenticated after successful verification');
       } else {
-        print('Setting state to error after failed verification');
+        // print('Setting state to error after failed verification');
         state = AuthErrorState(
           'Verification failed: ${response.message ?? "Unknown error"}',
         );
@@ -160,7 +160,7 @@ class AuthController extends StateNotifier<AuthState> {
 
       return response;
     } catch (e) {
-      print('Exception in auth controller during verification: $e');
+      // print('Exception in auth controller during verification: $e');
       state = AuthErrorState(
         e is AuthException
             ? e.message
