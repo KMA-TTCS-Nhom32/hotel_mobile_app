@@ -12,6 +12,157 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Hotel Booking';
 
   @override
+  String get loginWelcome => 'Welcome back!';
+
+  @override
+  String get loginSubtitle => 'Please login to your account';
+
+  @override
+  String get loginEmailPhonePlaceholder => 'Email or Phone Number';
+
+  @override
+  String get loginPasswordPlaceholder => 'Password';
+
+  @override
+  String get loginButton => 'Log In';
+
+  @override
+  String get loginForgotPassword => 'Forgot Password?';
+
+  @override
+  String get loginNoAccount => 'Don\'t have an account?';
+
+  @override
+  String get loginSignUp => 'Sign Up';
+
+  @override
+  String get loginInvalidCredentials => 'Invalid email/phone or password.';
+
+  @override
+  String get loginNetworkError => 'Network error. Please check your connection.';
+
+  @override
+  String get loginGenericError => 'Login failed. Please try again.';
+
+  @override
+  String get validationRequired => 'This field is required.';
+
+  @override
+  String get validationEmailPhone => 'Please enter a valid email or phone number.';
+
+  @override
+  String get validationPassword => 'Password must be at least 8 characters with at least one uppercase letter, one lowercase letter, one number, and one special character.';
+
+  @override
+  String get validationEmptyEmail => 'Please enter your email or phone number.';
+
+  @override
+  String get validationEmptyPassword => 'Please enter your password.';
+
+  @override
+  String get validationPhone => 'Please enter a valid phone number.';
+
+  @override
+  String get registerTitle => 'Create Account';
+
+  @override
+  String get registerSubtitle => 'Create your account to enjoy exclusive benefits';
+
+  @override
+  String get registerFullName => 'Full Name';
+
+  @override
+  String get registerEmail => 'Email';
+
+  @override
+  String get registerPhone => 'Phone Number';
+
+  @override
+  String get registerPassword => 'Password';
+
+  @override
+  String get registerButton => 'Create Account';
+
+  @override
+  String get registerTerms => 'By creating an account, you agree to our Terms of Service and Privacy Policy';
+
+  @override
+  String get registerInProgress => 'Registration feature coming soon!';
+
+  @override
+  String get registerUsePhone => 'Tap the phone icon to register with a phone number instead';
+
+  @override
+  String get registerUseEmail => 'Tap the email icon to register with an email instead';
+
+  @override
+  String get registerFailed => 'Registration failed. Please try again.';
+
+  @override
+  String get registerUserExists => 'User with this email or phone already exists.';
+
+  @override
+  String get verificationTitle => 'Verification';
+
+  @override
+  String verificationSubtitle(String identifier) {
+    return 'We\'ve sent a verification code to your $identifier';
+  }
+
+  @override
+  String get verificationEmailHeader => 'Verify Your Email';
+
+  @override
+  String get verificationPhoneHeader => 'Verify Your Phone Number';
+
+  @override
+  String get verificationSentTo => 'We\'ve sent a verification code to:';
+
+  @override
+  String get verificationCodeHint => 'Enter 6-digit code';
+
+  @override
+  String get verificationButton => 'Verify';
+
+  @override
+  String get verificationResend => 'Resend Code';
+
+  @override
+  String verificationResendIn(int seconds) {
+    return 'Resend Code in $seconds seconds';
+  }
+
+  @override
+  String get verificationSuccess => 'Verification successful! You can now log in.';
+
+  @override
+  String get verificationIncomplete => 'Please enter the complete verification code.';
+
+  @override
+  String get verificationFailed => 'Verification failed. Please check your code and try again.';
+
+  @override
+  String get verificationCodeResent => 'Verification code resent!';
+
+  @override
+  String get verificationInfo => 'Please complete the verification process. If you close the app, you\'ll need to login to receive a new code.';
+
+  @override
+  String get forgotPasswordTitle => 'Reset Your Password';
+
+  @override
+  String get forgotPasswordSubtitle => 'Enter your email or phone number and we\'ll send you a code';
+
+  @override
+  String get forgotPasswordEmailPhone => 'Email or Phone';
+
+  @override
+  String get forgotPasswordButton => 'Send Reset Code';
+
+  @override
+  String get forgotPasswordInProgress => 'Password reset feature coming soon!';
+
+  @override
   String get navHome => 'Home';
 
   @override
@@ -79,6 +230,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountPersonalInfo => 'Personal Information';
 
   @override
+  String get accountEmail => 'Email';
+
+  @override
+  String get accountPhone => 'Phone';
+
+  @override
+  String get accountRole => 'Member Status';
+
+  @override
+  String get accountVerified => 'Verified';
+
+  @override
+  String get accountUnverified => 'Not Verified';
+
+  @override
+  String get accountEditProfile => 'Edit Profile';
+
+  @override
   String get accountPaymentMethods => 'Payment Methods';
 
   @override
@@ -112,9 +281,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountSignOut => 'Sign Out';
 
   @override
+  String get accountLogoutConfirm => 'Are you sure you want to sign out?';
+
+  @override
+  String get accountLogoutProgress => 'Signing out...';
+
+  @override
+  String accountWelcome(String name) {
+    return 'Welcome, $name';
+  }
+
+  @override
   String accountVersion(String version) {
     return 'Version $version';
   }
+
+  @override
+  String get accountGender => 'Gender';
+
+  @override
+  String get accountMale => 'Male';
+
+  @override
+  String get accountFemale => 'Female';
 
   @override
   String get languageSelect => 'Select Language';

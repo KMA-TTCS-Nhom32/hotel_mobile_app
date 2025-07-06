@@ -101,6 +101,300 @@ abstract class AppLocalizations {
   /// **'Hotel Booking'**
   String get appTitle;
 
+  /// No description provided for @loginWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back!'**
+  String get loginWelcome;
+
+  /// No description provided for @loginSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please login to your account'**
+  String get loginSubtitle;
+
+  /// No description provided for @loginEmailPhonePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Email or Phone Number'**
+  String get loginEmailPhonePlaceholder;
+
+  /// No description provided for @loginPasswordPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get loginPasswordPlaceholder;
+
+  /// No description provided for @loginButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Log In'**
+  String get loginButton;
+
+  /// No description provided for @loginForgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get loginForgotPassword;
+
+  /// No description provided for @loginNoAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get loginNoAccount;
+
+  /// No description provided for @loginSignUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get loginSignUp;
+
+  /// No description provided for @loginInvalidCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email/phone or password.'**
+  String get loginInvalidCredentials;
+
+  /// No description provided for @loginNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Network error. Please check your connection.'**
+  String get loginNetworkError;
+
+  /// No description provided for @loginGenericError.
+  ///
+  /// In en, this message translates to:
+  /// **'Login failed. Please try again.'**
+  String get loginGenericError;
+
+  /// No description provided for @validationRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required.'**
+  String get validationRequired;
+
+  /// No description provided for @validationEmailPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email or phone number.'**
+  String get validationEmailPhone;
+
+  /// No description provided for @validationPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters with at least one uppercase letter, one lowercase letter, one number, and one special character.'**
+  String get validationPassword;
+
+  /// No description provided for @validationEmptyEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email or phone number.'**
+  String get validationEmptyEmail;
+
+  /// No description provided for @validationEmptyPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password.'**
+  String get validationEmptyPassword;
+
+  /// No description provided for @validationPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid phone number.'**
+  String get validationPhone;
+
+  /// No description provided for @registerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get registerTitle;
+
+  /// No description provided for @registerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your account to enjoy exclusive benefits'**
+  String get registerSubtitle;
+
+  /// No description provided for @registerFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get registerFullName;
+
+  /// No description provided for @registerEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get registerEmail;
+
+  /// No description provided for @registerPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get registerPhone;
+
+  /// No description provided for @registerPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get registerPassword;
+
+  /// No description provided for @registerButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get registerButton;
+
+  /// No description provided for @registerTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'By creating an account, you agree to our Terms of Service and Privacy Policy'**
+  String get registerTerms;
+
+  /// No description provided for @registerInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration feature coming soon!'**
+  String get registerInProgress;
+
+  /// No description provided for @registerUsePhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the phone icon to register with a phone number instead'**
+  String get registerUsePhone;
+
+  /// No description provided for @registerUseEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the email icon to register with an email instead'**
+  String get registerUseEmail;
+
+  /// No description provided for @registerFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration failed. Please try again.'**
+  String get registerFailed;
+
+  /// No description provided for @registerUserExists.
+  ///
+  /// In en, this message translates to:
+  /// **'User with this email or phone already exists.'**
+  String get registerUserExists;
+
+  /// No description provided for @verificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification'**
+  String get verificationTitle;
+
+  /// No description provided for @verificationSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve sent a verification code to your {identifier}'**
+  String verificationSubtitle(String identifier);
+
+  /// No description provided for @verificationEmailHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Your Email'**
+  String get verificationEmailHeader;
+
+  /// No description provided for @verificationPhoneHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Your Phone Number'**
+  String get verificationPhoneHeader;
+
+  /// No description provided for @verificationSentTo.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve sent a verification code to:'**
+  String get verificationSentTo;
+
+  /// No description provided for @verificationCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 6-digit code'**
+  String get verificationCodeHint;
+
+  /// No description provided for @verificationButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verificationButton;
+
+  /// No description provided for @verificationResend.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Code'**
+  String get verificationResend;
+
+  /// No description provided for @verificationResendIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Code in {seconds} seconds'**
+  String verificationResendIn(int seconds);
+
+  /// No description provided for @verificationSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification successful! You can now log in.'**
+  String get verificationSuccess;
+
+  /// No description provided for @verificationIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the complete verification code.'**
+  String get verificationIncomplete;
+
+  /// No description provided for @verificationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification failed. Please check your code and try again.'**
+  String get verificationFailed;
+
+  /// No description provided for @verificationCodeResent.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code resent!'**
+  String get verificationCodeResent;
+
+  /// No description provided for @verificationInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Please complete the verification process. If you close the app, you\'ll need to login to receive a new code.'**
+  String get verificationInfo;
+
+  /// No description provided for @forgotPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Your Password'**
+  String get forgotPasswordTitle;
+
+  /// No description provided for @forgotPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email or phone number and we\'ll send you a code'**
+  String get forgotPasswordSubtitle;
+
+  /// No description provided for @forgotPasswordEmailPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Email or Phone'**
+  String get forgotPasswordEmailPhone;
+
+  /// No description provided for @forgotPasswordButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reset Code'**
+  String get forgotPasswordButton;
+
+  /// No description provided for @forgotPasswordInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset feature coming soon!'**
+  String get forgotPasswordInProgress;
+
   /// No description provided for @navHome.
   ///
   /// In en, this message translates to:
@@ -227,6 +521,42 @@ abstract class AppLocalizations {
   /// **'Personal Information'**
   String get accountPersonalInfo;
 
+  /// No description provided for @accountEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get accountEmail;
+
+  /// No description provided for @accountPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get accountPhone;
+
+  /// No description provided for @accountRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Member Status'**
+  String get accountRole;
+
+  /// No description provided for @accountVerified.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get accountVerified;
+
+  /// No description provided for @accountUnverified.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Verified'**
+  String get accountUnverified;
+
+  /// No description provided for @accountEditProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get accountEditProfile;
+
   /// No description provided for @accountPaymentMethods.
   ///
   /// In en, this message translates to:
@@ -293,11 +623,47 @@ abstract class AppLocalizations {
   /// **'Sign Out'**
   String get accountSignOut;
 
+  /// No description provided for @accountLogoutConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to sign out?'**
+  String get accountLogoutConfirm;
+
+  /// No description provided for @accountLogoutProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Signing out...'**
+  String get accountLogoutProgress;
+
+  /// No description provided for @accountWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome, {name}'**
+  String accountWelcome(String name);
+
   /// No description provided for @accountVersion.
   ///
   /// In en, this message translates to:
   /// **'Version {version}'**
   String accountVersion(String version);
+
+  /// No description provided for @accountGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get accountGender;
+
+  /// No description provided for @accountMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get accountMale;
+
+  /// No description provided for @accountFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get accountFemale;
 
   /// No description provided for @languageSelect.
   ///

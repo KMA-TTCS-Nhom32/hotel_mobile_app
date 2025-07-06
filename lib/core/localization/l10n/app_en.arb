@@ -1,6 +1,74 @@
 {
   "@@locale": "en",
   "appTitle": "Hotel Booking",
+
+  "@@Auth": "--------------------------------",
+  "loginWelcome": "Welcome back!",
+  "loginSubtitle": "Please login to your account",
+  "loginEmailPhonePlaceholder": "Email or Phone Number",
+  "loginPasswordPlaceholder": "Password",
+  "loginButton": "Log In",
+  "loginForgotPassword": "Forgot Password?",
+  "loginNoAccount": "Don't have an account?",
+  "loginSignUp": "Sign Up",
+  "loginInvalidCredentials": "Invalid email/phone or password.",
+  "loginNetworkError": "Network error. Please check your connection.",
+  "loginGenericError": "Login failed. Please try again.",
+  "validationRequired": "This field is required.",
+  "validationEmailPhone": "Please enter a valid email or phone number.",
+  "validationPassword": "Password must be at least 8 characters with at least one uppercase letter, one lowercase letter, one number, and one special character.",
+  "validationEmptyEmail": "Please enter your email or phone number.",
+  "validationEmptyPassword": "Please enter your password.",
+  "validationPhone": "Please enter a valid phone number.",
+  
+  "registerTitle": "Create Account",
+  "registerSubtitle": "Create your account to enjoy exclusive benefits",
+  "registerFullName": "Full Name",
+  "registerEmail": "Email",
+  "registerPhone": "Phone Number",
+  "registerPassword": "Password",
+  "registerButton": "Create Account",
+  "registerTerms": "By creating an account, you agree to our Terms of Service and Privacy Policy",
+  "registerInProgress": "Registration feature coming soon!",
+  "registerUsePhone": "Tap the phone icon to register with a phone number instead",
+  "registerUseEmail": "Tap the email icon to register with an email instead",
+  "registerFailed": "Registration failed. Please try again.",
+  "registerUserExists": "User with this email or phone already exists.",
+  
+  "verificationTitle": "Verification",
+  "verificationSubtitle": "We've sent a verification code to your {identifier}",
+  "@verificationSubtitle": {
+    "placeholders": {
+      "identifier": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationEmailHeader": "Verify Your Email",
+  "verificationPhoneHeader": "Verify Your Phone Number",
+  "verificationSentTo": "We've sent a verification code to:",
+  "verificationCodeHint": "Enter 6-digit code",
+  "verificationButton": "Verify",
+  "verificationResend": "Resend Code",
+  "verificationResendIn": "Resend Code in {seconds} seconds",
+  "@verificationResendIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "verificationSuccess": "Verification successful! You can now log in.",
+  "verificationIncomplete": "Please enter the complete verification code.",
+  "verificationFailed": "Verification failed. Please check your code and try again.",
+  "verificationCodeResent": "Verification code resent!",
+  "verificationInfo": "Please complete the verification process. If you close the app, you'll need to login to receive a new code.",
+  
+  "forgotPasswordTitle": "Reset Your Password",
+  "forgotPasswordSubtitle": "Enter your email or phone number and we'll send you a code",
+  "forgotPasswordEmailPhone": "Email or Phone",
+  "forgotPasswordButton": "Send Reset Code",
+  "forgotPasswordInProgress": "Password reset feature coming soon!",
   
   "@@Navigation": "--------------------------------",
   "navHome": "Home",
@@ -44,6 +112,12 @@
   "accountSignIn": "Sign In or Register",
   "accountSignInMsg": "Sign in to access your bookings, saved hotels, and personalized offers.",
   "accountPersonalInfo": "Personal Information",
+  "accountEmail": "Email",
+  "accountPhone": "Phone",
+  "accountRole": "Member Status",
+  "accountVerified": "Verified",
+  "accountUnverified": "Not Verified",
+  "accountEditProfile": "Edit Profile",
   "accountPaymentMethods": "Payment Methods",
   "accountLoyaltyProgram": "Loyalty Program",
   "accountBookingHistory": "Booking History",
@@ -55,6 +129,16 @@
   "accountPrivacyPolicy": "Privacy Policy",
   "accountTerms": "Terms & Conditions",
   "accountSignOut": "Sign Out",
+  "accountLogoutConfirm": "Are you sure you want to sign out?",
+  "accountLogoutProgress": "Signing out...",
+  "accountWelcome": "Welcome, {name}",
+  "@accountWelcome": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "accountVersion": "Version {version}",
   "@accountVersion": {
     "placeholders": {
@@ -63,6 +147,9 @@
       }
     }
   },
+  "accountGender": "Gender",
+  "accountMale": "Male",
+  "accountFemale": "Female",
   
   "@@Language Selection": "--------------------------------",
   "languageSelect": "Select Language",
