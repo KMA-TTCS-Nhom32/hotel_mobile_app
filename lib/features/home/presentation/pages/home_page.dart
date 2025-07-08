@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/localization/app_localizations_exports.dart';
 import '../../../../core/utils/logger.dart';
+import '../../../../features/branch_detail/presentation/pages/branch_detail_screen.dart';
 import '../../controller/home_controller.dart';
 import '../../domain/entities/branch.dart';
 import '../widgets/featured_hotels_carousel.dart';
@@ -323,7 +324,34 @@ class _ProvinceHotelCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {
-          // Navigate to hotel details
+          // Create logger instance
+          final logger = AppLogger();
+
+          // Debug info about the branch ID
+          logger.d('Province list: Tapped branch ID: "${branch.id}"');
+          logger.d(
+            'Province list: Branch ID type: ${branch.id.runtimeType}, length: ${branch.id.length}',
+          );
+
+          // Check for potential issues with the branch ID
+          if (branch.id.contains(' ')) {
+            logger.w('Province list: Warning - Branch ID contains spaces');
+          }
+
+          // Sanitize the branch ID before navigation
+          final sanitizedId = branch.id.trim();
+          if (branch.id != sanitizedId) {
+            logger.w(
+              'Province list: Branch ID needed trimming - original: "${branch.id}", sanitized: "$sanitizedId"',
+            );
+          }
+
+          // Navigate to branch detail screen with sanitized ID
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => BranchDetailScreen(branchId: sanitizedId),
+            ),
+          );
         },
         child: Card(
           elevation: 0,

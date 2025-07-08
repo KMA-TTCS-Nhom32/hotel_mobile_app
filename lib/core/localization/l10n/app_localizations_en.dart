@@ -365,4 +365,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get guest => 'Guest';
+
+  @override
+  String get failedToLoadHotelDetails => 'Failed to load hotel details';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get amenities => 'Amenities';
+
+  @override
+  String get nearbyPlaces => 'Nearby Places';
+
+  @override
+  String get availableRooms => 'Available Rooms';
+
+  @override
+  String get perNight => 'per night';
+
+  @override
+  String get guests => 'Guests';
+
+  @override
+  String get bookNow => 'Book Now';
 }

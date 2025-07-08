@@ -365,4 +365,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get guest => 'Khách';
+
+  @override
+  String get failedToLoadHotelDetails => 'Không thể tải thông tin khách sạn';
+
+  @override
+  String get about => 'Giới thiệu';
+
+  @override
+  String get amenities => 'Tiện nghi';
+
+  @override
+  String get nearbyPlaces => 'Địa điểm lân cận';
+
+  @override
+  String get availableRooms => 'Phòng có sẵn';
+
+  @override
+  String get perNight => 'mỗi đêm';
+
+  @override
+  String get guests => 'Khách';
+
+  @override
+  String get bookNow => 'Đặt Ngay';
 }

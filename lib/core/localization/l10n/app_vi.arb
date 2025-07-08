@@ -151,5 +151,15 @@
   "loading": "Đang tải...",
   "retry": "Thử lại",
   "noData": "Không có dữ liệu",
-  "guest": "Khách"
+  "guest": "Khách",
+  
+  "failedToLoadHotelDetails": "Không thể tải thông tin khách sạn",
+  "about": "Giới thiệu",
+  "amenities": "Tiện nghi",
+  "nearbyPlaces": "Địa điểm lân cận",
+  "availableRooms": "Phòng có sẵn",
+  "perNight": "mỗi đêm",
+  "guest": "Khách",
+  "guests": "Khách",
+  "bookNow": "Đặt Ngay"
 }

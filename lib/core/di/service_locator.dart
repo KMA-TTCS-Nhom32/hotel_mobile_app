@@ -5,6 +5,7 @@ import '../services/secure_storage_service.dart';
 import '../../features/auth/data/repositories/auth_repository.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/home/data/repositories/home_repository.dart';
+import '../../features/branch_detail/data/repositories/branch_detail_repository.dart';
 
 /// Global service locator instance
 final GetIt serviceLocator = GetIt.instance;
@@ -49,6 +50,11 @@ void _registerRepositories() {
   // Home repository
   serviceLocator.registerSingleton(
     HomeRepository(apiService: serviceLocator<ApiService>()),
+  );
+
+  // Branch detail repository
+  serviceLocator.registerSingleton<BranchDetailRepository>(
+    BranchDetailRepositoryImpl(serviceLocator<ApiService>()),
   );
 }
 

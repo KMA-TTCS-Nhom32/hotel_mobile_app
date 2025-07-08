@@ -778,6 +778,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Guest'**
   String get guest;
+
+  /// No description provided for @failedToLoadHotelDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load hotel details'**
+  String get failedToLoadHotelDetails;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// No description provided for @amenities.
+  ///
+  /// In en, this message translates to:
+  /// **'Amenities'**
+  String get amenities;
+
+  /// No description provided for @nearbyPlaces.
+  ///
+  /// In en, this message translates to:
+  /// **'Nearby Places'**
+  String get nearbyPlaces;
+
+  /// No description provided for @availableRooms.
+  ///
+  /// In en, this message translates to:
+  /// **'Available Rooms'**
+  String get availableRooms;
+
+  /// No description provided for @perNight.
+  ///
+  /// In en, this message translates to:
+  /// **'per night'**
+  String get perNight;
+
+  /// No description provided for @guests.
+  ///
+  /// In en, this message translates to:
+  /// **'Guests'**
+  String get guests;
+
+  /// No description provided for @bookNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Book Now'**
+  String get bookNow;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
