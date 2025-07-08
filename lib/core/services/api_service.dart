@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hotel_mobile_app/features/auth/data/repositories/auth_repository.dart';
+
+import 'auth_interceptor.dart';
 
 /// API service for making HTTP requests
 class ApiService {
@@ -12,6 +15,25 @@ class ApiService {
   /// Creates an instance of ApiService
   ApiService() {
     _dio = _createDioInstance();
+  }
+
+  /// Add auth interceptor
+  void addAuthInterceptor(
+    AuthRepository authRepository,
+    VoidCallback onRefreshFailed,
+  ) {
+    _dio.interceptors.removeWhere(
+      (interceptor) => interceptor is AuthInterceptor,
+    );
+
+    final authInterceptor = AuthInterceptor(
+      _dio,
+      authRepository,
+      onRefreshFailed,
+    );
+
+    // Insert at the beginning to catch errors before other interceptors
+    _dio.interceptors.insert(0, authInterceptor);
   }
 
   /// Create and configure Dio instance

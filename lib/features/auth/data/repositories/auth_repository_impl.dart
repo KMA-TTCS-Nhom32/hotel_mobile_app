@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../../../../core/services/api_service.dart';
 import '../../../../core/services/secure_storage_service.dart';
+import '../../../../core/utils/logger.dart';
 import '../../domain/entities/auth_token.dart';
 import '../../domain/entities/registration_data.dart';
 import '../../domain/entities/user_profile.dart';
@@ -18,6 +19,7 @@ import 'auth_repository.dart';
 class AuthRepositoryImpl implements AuthRepository {
   final ApiService _apiService;
   final SecureStorageService _secureStorage;
+  final AppLogger _logger = AppLogger();
 
   /// Create an instance of AuthRepositoryImpl
   AuthRepositoryImpl(this._apiService, this._secureStorage);
@@ -25,11 +27,14 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<AuthToken> login(LoginCredentials credentials) async {
     try {
+      _logger.d('Attempting login with: ${credentials.emailOrPhone}');
+
       final response = await _apiService.post(
         '/auth/login',
         data: credentials.toJson(),
       );
 
+      _logger.d('Login successful');
       final loginResponse = LoginResponseDto.fromJson(response.data);
       final token = loginResponse.toEntity();
 
@@ -48,11 +53,14 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<AuthToken> refreshToken(String refreshToken) async {
     try {
+      _logger.d('Attempting to refresh token');
+
       final response = await _apiService.post(
         '/auth/refresh',
         data: {'refreshToken': refreshToken},
       );
 
+      _logger.d('Token refresh successful');
       final loginResponse = LoginResponseDto.fromJson(response.data);
       final token = loginResponse.toEntity();
 
@@ -65,6 +73,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return token;
     } catch (e) {
       // Clear token if refresh fails
+      _logger.e('Token refresh failed', e);
       await clearToken();
       throw _handleAuthError(e);
     }
@@ -73,14 +82,19 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> logout() async {
     try {
+      _logger.d('Logging out user');
       // Call logout endpoint if needed
       await _apiService.post('/auth/logout');
     } catch (e) {
       // Ignore errors on logout
+      _logger.w(
+        'Error during logout API call (proceeding anyway): ${e.toString()}',
+      );
     } finally {
       // Always clear local token
       await clearToken();
       _apiService.clearAuthToken();
+      _logger.d('User logged out - tokens cleared');
     }
   }
 
@@ -121,7 +135,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<RegisterResponseDto> register(RegistrationData data) async {
     try {
       // Debug log for registration request
-      print(
+      _logger.d(
         'Registering user with ${data.isEmail ? "email" : "phone"}: ${data.isEmail ? data.identifier : data.phone}',
       );
 
@@ -131,12 +145,12 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       // Debug log for successful registration
-      print('Registration successful: ${response.data}');
+      _logger.d('Registration successful: ${response.data}');
 
       return RegisterResponseDto.fromJson(response.data);
     } catch (e) {
       // Debug log for registration error
-      print('Registration error: $e');
+      _logger.e('Registration error', e);
       throw _handleAuthError(e);
     }
   }
@@ -150,7 +164,7 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       // Debug the response to troubleshoot parsing issues
-      print('Verification response: ${response.data}');
+      _logger.d('Verification response: ${response.data}');
 
       final verifyResponse = VerifyResponseDto.fromJson(response.data);
       // Extra check to ensure success is properly set
@@ -164,7 +178,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
       return verifyResponse;
     } catch (e) {
-      print('Verification error: $e');
+      _logger.e('Verification error', e);
       // Special handling for 422 errors which might indicate the code was already used
       if (e is ValidationException && e.message.contains('already verified')) {
         // Return a successful response with a custom message
@@ -189,10 +203,13 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<UserProfile> getUserProfile() async {
     try {
+      _logger.d('Fetching user profile');
       final response = await _apiService.get('/auth/profile');
       final userProfileDto = UserProfileDto.fromJson(response.data);
+      _logger.d('User profile fetched successfully');
       return userProfileDto.toEntity();
     } catch (e) {
+      _logger.e('Error fetching user profile', e);
       throw _handleAuthError(e);
     }
   }

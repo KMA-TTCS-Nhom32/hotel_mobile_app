@@ -74,7 +74,7 @@ class _HotelCard extends StatelessWidget {
           // Hotel Image
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-            child: Image.asset(
+            child: Image.network(
               hotel.imageUrl,
               height: 120,
               width: double.infinity,

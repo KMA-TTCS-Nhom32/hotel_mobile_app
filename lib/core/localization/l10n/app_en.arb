@@ -91,6 +91,16 @@
   "homeTopRated": "Top Rated",
   "homeRecentlyViewed": "Recently Viewed",
   "homeViewAll": "View All",
+  "hotelsInProvince": "Hotels in {province}",
+  "@hotelsInProvince": {
+    "placeholders": {
+      "province": {
+        "type": "String"
+      }
+    }
+  },
+  "clearButton": "Clear",
+  "noHotelsFound": "No hotels found in this province",
   
   "@@Bookings Page": "--------------------------------",
   "bookingsTitle": "My Bookings",

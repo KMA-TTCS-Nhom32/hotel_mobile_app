@@ -461,6 +461,24 @@ abstract class AppLocalizations {
   /// **'View All'**
   String get homeViewAll;
 
+  /// No description provided for @hotelsInProvince.
+  ///
+  /// In en, this message translates to:
+  /// **'Hotels in {province}'**
+  String hotelsInProvince(String province);
+
+  /// No description provided for @clearButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clearButton;
+
+  /// No description provided for @noHotelsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No hotels found in this province'**
+  String get noHotelsFound;
+
   /// No description provided for @bookingsTitle.
   ///
   /// In en, this message translates to:

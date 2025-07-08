@@ -6,6 +6,7 @@ import '../../features/auth/data/repositories/auth_repository.dart';
 
 // Export providers
 export 'navigation_provider.dart';
+export 'auth_providers.dart';
 export '../localization/locale_provider.dart';
 export '../../features/home/controller/home_controller.dart';
 export '../../features/auth/controller/auth_controller.dart';
