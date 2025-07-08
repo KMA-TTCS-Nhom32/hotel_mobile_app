@@ -186,5 +186,15 @@
   "loading": "Loading...",
   "retry": "Retry",
   "noData": "No data available",
-  "guest": "Guest"
+  "guest": "Guest",
+  
+  "failedToLoadHotelDetails": "Failed to load hotel details",
+  "about": "About",
+  "amenities": "Amenities",
+  "nearbyPlaces": "Nearby Places",
+  "availableRooms": "Available Rooms",
+  "perNight": "per night",
+  "guest": "Guest",
+  "guests": "Guests",
+  "bookNow": "Book Now"
 }

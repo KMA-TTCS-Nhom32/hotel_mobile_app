@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import '../../../../core/utils/logger.dart';
 import '../../../../core/widgets/custom_cached_image.dart';
+import '../../../../features/branch_detail/presentation/pages/branch_detail_screen.dart';
 import '../../domain/entities/branch.dart' as hotel_branch;
 
 class FeaturedHotelsCarousel extends StatelessWidget {
@@ -94,6 +96,37 @@ class FeaturedHotelsCarousel extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 // Navigate to hotel details
+                if (isApiData && item is hotel_branch.Branch) {
+                  // Create logger instance
+                  final logger = AppLogger();
+
+                  // Debug info about the branch ID
+                  logger.d('Carousel: Tapped branch ID: "${item.id}"');
+                  logger.d(
+                    'Carousel: Branch ID type: ${item.id.runtimeType}, length: ${item.id.length}',
+                  );
+
+                  // Check for potential issues with the branch ID
+                  if (item.id.contains(' ')) {
+                    logger.w('Carousel: Warning - Branch ID contains spaces');
+                  }
+
+                  // Sanitize the branch ID before navigation
+                  final sanitizedId = item.id.trim();
+                  if (item.id != sanitizedId) {
+                    logger.w(
+                      'Carousel: Branch ID needed trimming - original: "${item.id}", sanitized: "$sanitizedId"',
+                    );
+                  }
+
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder:
+                          (context) =>
+                              BranchDetailScreen(branchId: sanitizedId),
+                    ),
+                  );
+                }
               },
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.85,
