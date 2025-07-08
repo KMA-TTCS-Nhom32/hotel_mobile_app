@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:hotel_mobile_app/core/utils/logger.dart';
 import '../../features/auth/data/repositories/auth_repository.dart';
 
 /// Interceptor for handling authentication in API requests
 class AuthInterceptor extends Interceptor {
   final Dio _dio;
   final AuthRepository _authRepository;
+  final AppLogger _logger = AppLogger();
 
   /// Flag to prevent multiple token refresh requests
   bool _isRefreshing = false;
@@ -90,6 +93,9 @@ class AuthInterceptor extends Interceptor {
       _processPendingRequests(newToken.accessToken);
 
       _isRefreshing = false;
+      if (!_refreshCompleter.isCompleted) {
+        _refreshCompleter.complete(newToken.accessToken);
+      }
       return newToken.accessToken;
     } catch (e) {
       _isRefreshing = false;
@@ -103,23 +109,25 @@ class AuthInterceptor extends Interceptor {
     }
   }
 
+  final _refreshCompleter = Completer<String?>();
+
   /// Wait for an ongoing refresh to complete
   Future<String?> _waitForRefresh() {
-    final completer = Completer<String?>();
-
     Timer.periodic(const Duration(milliseconds: 100), (timer) {
       if (!_isRefreshing) {
         timer.cancel();
         final token = _dio.options.headers['Authorization'];
         if (token != null && token is String && token.startsWith('Bearer ')) {
-          completer.complete(token.substring(7)); // Remove 'Bearer ' prefix
+          _refreshCompleter.complete(
+            token.substring(7),
+          ); // Remove 'Bearer ' prefix
         } else {
-          completer.complete(null);
+          _refreshCompleter.complete(null);
         }
       }
     });
 
-    return completer.future;
+    return _refreshCompleter.future;
   }
 
   /// Process any pending requests with the new token
@@ -130,7 +138,9 @@ class AuthInterceptor extends Interceptor {
     for (final request in requests) {
       // Set new token
       request.headers['Authorization'] = 'Bearer $newToken';
-      _dio.fetch(request);
+      _dio.fetch(request).catchError((error) {
+        _logger.e('Error occurred while retrying request: $error');
+      });
     }
   }
 
@@ -161,6 +171,3 @@ class AuthInterceptor extends Interceptor {
     );
   }
 }
-
-/// Callback type for refresh failure
-typedef VoidCallback = void Function();

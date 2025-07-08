@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hotel_mobile_app/features/auth/data/repositories/auth_repository.dart';
 
 import 'auth_interceptor.dart';
 
@@ -18,9 +19,13 @@ class ApiService {
 
   /// Add auth interceptor
   void addAuthInterceptor(
-    dynamic authRepository,
+    AuthRepository authRepository,
     VoidCallback onRefreshFailed,
   ) {
+    _dio.interceptors.removeWhere(
+      (interceptor) => interceptor is AuthInterceptor,
+    );
+
     final authInterceptor = AuthInterceptor(
       _dio,
       authRepository,

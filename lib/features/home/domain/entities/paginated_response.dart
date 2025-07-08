@@ -35,12 +35,19 @@ class PaginatedResponse<T> {
     Map<String, dynamic> json,
     T Function(Map<String, dynamic>) fromJsonT,
   ) {
+    final dataJson = json['data'] as List<dynamic>?;
+    final metaJson = json['meta'] as Map<String, dynamic>?;
+
+    if (dataJson == null || metaJson == null) {
+      throw ArgumentError('Missing required fields in PaginatedResponse JSON');
+    }
+
     return PaginatedResponse(
       data:
-          (json['data'] as List<dynamic>)
+          dataJson
               .map((item) => fromJsonT(item as Map<String, dynamic>))
               .toList(),
-      meta: PaginationMeta.fromJson(json['meta'] as Map<String, dynamic>),
+      meta: PaginationMeta.fromJson(metaJson),
     );
   }
 }

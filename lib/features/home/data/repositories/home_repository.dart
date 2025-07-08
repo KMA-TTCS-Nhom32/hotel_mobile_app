@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../../../core/di/service_locator.dart';
 import '../../../../core/services/api_service.dart';
 import '../../../../core/utils/logger.dart';
@@ -69,7 +71,7 @@ class HomeRepository {
       );
 
       // Create filter JSON string for the API - this is what the backend expects
-      final filtersJson = '{"provinceId":"$provinceId"}';
+      final filtersJson = jsonEncode({'provinceId': provinceId});
 
       final response = await _apiService.get(
         '/branches',
