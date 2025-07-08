@@ -70,6 +70,16 @@
   "homeTopRated": "Đánh giá cao",
   "homeRecentlyViewed": "Đã xem gần đây",
   "homeViewAll": "Xem tất cả",
+  "hotelsInProvince": "Khách sạn tại {province}",
+  "@hotelsInProvince": {
+    "placeholders": {
+      "province": {
+        "type": "String"
+      }
+    }
+  },
+  "clearButton": "Xóa",
+  "noHotelsFound": "Không tìm thấy khách sạn nào tại tỉnh này",
   
   "@@Bookings Page": "--------------------------------",
   "bookingsTitle": "Đặt phòng của tôi",

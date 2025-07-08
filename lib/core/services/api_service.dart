@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
+import 'auth_interceptor.dart';
+
 /// API service for making HTTP requests
 class ApiService {
   late final Dio _dio;
@@ -12,6 +14,21 @@ class ApiService {
   /// Creates an instance of ApiService
   ApiService() {
     _dio = _createDioInstance();
+  }
+
+  /// Add auth interceptor
+  void addAuthInterceptor(
+    dynamic authRepository,
+    VoidCallback onRefreshFailed,
+  ) {
+    final authInterceptor = AuthInterceptor(
+      _dio,
+      authRepository,
+      onRefreshFailed,
+    );
+
+    // Insert at the beginning to catch errors before other interceptors
+    _dio.interceptors.insert(0, authInterceptor);
   }
 
   /// Create and configure Dio instance

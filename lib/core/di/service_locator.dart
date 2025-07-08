@@ -4,6 +4,7 @@ import '../services/api_service.dart';
 import '../services/secure_storage_service.dart';
 import '../../features/auth/data/repositories/auth_repository.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
+import '../../features/home/data/repositories/home_repository.dart';
 
 /// Global service locator instance
 final GetIt serviceLocator = GetIt.instance;
@@ -15,6 +16,9 @@ Future<void> initializeServiceLocator() async {
 
   // Register repositories as singletons
   _registerRepositories();
+
+  // Setup auth interceptor
+  _setupAuthInterceptor();
 
   // Register controllers as lazy singletons
   _registerControllers();
@@ -41,6 +45,11 @@ void _registerRepositories() {
       serviceLocator<SecureStorageService>(),
     ),
   );
+
+  // Home repository
+  serviceLocator.registerSingleton(
+    HomeRepository(apiService: serviceLocator<ApiService>()),
+  );
 }
 
 void _registerControllers() {
@@ -55,4 +64,23 @@ void _registerUseCases() {
   // serviceLocator.registerFactory<LoginUseCase>(
   //   () => LoginUseCase(userRepository: serviceLocator<UserRepository>()),
   // );
+}
+
+/// Setup auth interceptor with token refresh functionality
+void _setupAuthInterceptor() {
+  final apiService = serviceLocator<ApiService>();
+  final authRepository = serviceLocator<AuthRepository>();
+
+  // Create a function to handle refresh failures
+  final onRefreshFailed = () {
+    // Force logout and clear tokens
+    authRepository.clearToken();
+
+    // Note: We can't access Riverpod providers directly from here
+    // The actual UI navigation will be handled by authControllerProvider
+    // watching for state changes and redirecting accordingly
+  };
+
+  // Add auth interceptor to Dio instance
+  apiService.addAuthInterceptor(authRepository, onRefreshFailed);
 }

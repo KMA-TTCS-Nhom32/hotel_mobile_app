@@ -9,8 +9,10 @@ import 'core/providers/locale_provider.dart';
 import 'features/navigation/presentation/pages/main_navigation_screen_riverpod.dart';
 import 'features/auth/presentation/pages/login_screen.dart';
 import 'features/auth/presentation/pages/register_screen.dart';
-import 'features/auth/presentation/pages/verification_screen.dart';
 import 'features/auth/controller/auth_state.dart';
+
+// Global navigator key for app-wide navigation
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,7 +60,7 @@ class MyApp extends ConsumerWidget {
       title: 'AHomeVilla Hotel',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-
+      navigatorKey: navigatorKey, // Use the global navigator key
       // Localization configuration
       locale: locale,
       supportedLocales: LocalizationConfig.supportedLocales,

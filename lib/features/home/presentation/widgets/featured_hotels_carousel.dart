@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../../../../core/widgets/custom_cached_image.dart';
-import '../../domain/entities/featured_hotel.dart';
+import '../../domain/entities/branch.dart' as hotel_branch;
 
 class FeaturedHotelsCarousel extends StatelessWidget {
-  final List<FeaturedHotel>? featuredHotels;
+  final List<hotel_branch.Branch>? branchesList;
 
-  const FeaturedHotelsCarousel({this.featuredHotels, super.key});
+  const FeaturedHotelsCarousel({this.branchesList, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +41,9 @@ class FeaturedHotelsCarousel extends StatelessWidget {
       },
     ];
 
+    final List<dynamic> itemsToShow =
+        branchesList?.isNotEmpty == true ? branchesList! : sampleData;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -64,30 +67,29 @@ class FeaturedHotelsCarousel extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         CarouselSlider.builder(
-          itemCount: featuredHotels?.length ?? sampleData.length,
+          itemCount: itemsToShow.length,
           itemBuilder: (context, index, realIndex) {
-            final dynamic hotel =
-                featuredHotels != null
-                    ? featuredHotels![index]
-                    : sampleData[index];
+            final bool isApiData = branchesList?.isNotEmpty == true;
+            final dynamic item = itemsToShow[index];
+
+            // Get data based on whether we're using API data or sample data
+            // Get current locale for localization
+            final currentLocale = Localizations.localeOf(context).languageCode;
+
             final String imageUrl =
-                featuredHotels != null
-                    ? hotel.imageUrl
-                    : hotel['image'] as String;
+                isApiData ? item.thumbnail.url : item['image'] as String;
             final String name =
-                featuredHotels != null ? hotel.name : hotel['name'] as String;
+                isApiData
+                    ? item.getLocalizedName(currentLocale)
+                    : item['name'] as String;
             final String location =
-                featuredHotels != null
-                    ? hotel.location
-                    : hotel['location'] as String;
+                isApiData
+                    ? (item.province?.getLocalizedName(currentLocale) ??
+                        item.getLocalizedAddress(currentLocale))
+                    : item['location'] as String;
             final String price =
-                featuredHotels != null
-                    ? '\$${hotel.price.toStringAsFixed(0)}'
-                    : hotel['price'] as String;
-            final double rating =
-                featuredHotels != null
-                    ? hotel.rating
-                    : hotel['rating'] as double;
+                isApiData ? 'Contact for price' : item['price'] as String;
+            final dynamic rating = isApiData ? item.rating : item['rating'];
 
             return GestureDetector(
               onTap: () {
@@ -141,12 +143,32 @@ class FeaturedHotelsCarousel extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              name,
-                              style: const TextStyle(
+                            Tooltip(
+                              message:
+                                  isApiData
+                                      ? item.getLocalizedDescription(
+                                        currentLocale,
+                                      )
+                                      : 'Sample hotel description',
+                              textStyle: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              waitDuration: const Duration(milliseconds: 500),
+                              showDuration: const Duration(seconds: 3),
+                              child: Text(
+                                name,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             const SizedBox(height: 4),
@@ -158,11 +180,15 @@ class FeaturedHotelsCarousel extends StatelessWidget {
                                   size: 16,
                                 ),
                                 const SizedBox(width: 4),
-                                Text(
-                                  hotel['location'] as String,
-                                  style: const TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 14,
+                                Expanded(
+                                  child: Text(
+                                    location,
+                                    style: const TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 14,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                               ],
@@ -180,7 +206,9 @@ class FeaturedHotelsCarousel extends StatelessWidget {
                                     ),
                                     const SizedBox(width: 4),
                                     Text(
-                                      hotel['rating'].toString(),
+                                      rating != null
+                                          ? rating.toString()
+                                          : 'N/A',
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 14,
@@ -190,7 +218,7 @@ class FeaturedHotelsCarousel extends StatelessWidget {
                                   ],
                                 ),
                                 Text(
-                                  '${hotel['price']} / night',
+                                  price,
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,

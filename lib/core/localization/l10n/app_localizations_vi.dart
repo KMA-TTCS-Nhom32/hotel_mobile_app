@@ -198,6 +198,17 @@ class AppLocalizationsVi extends AppLocalizations {
   String get homeViewAll => 'Xem tất cả';
 
   @override
+  String hotelsInProvince(String province) {
+    return 'Khách sạn tại $province';
+  }
+
+  @override
+  String get clearButton => 'Xóa';
+
+  @override
+  String get noHotelsFound => 'Không tìm thấy khách sạn nào tại tỉnh này';
+
+  @override
   String get bookingsTitle => 'Đặt phòng của tôi';
 
   @override

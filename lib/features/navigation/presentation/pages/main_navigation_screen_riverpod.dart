@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/localization/index.dart';
 import '../../../../core/providers/navigation_provider.dart';
-import '../../../home/presentation/pages/home_page_riverpod.dart';
+import '../../../home/presentation/pages/home_page.dart';
 import '../../../promotions/presentation/pages/promotions_page.dart';
 import '../../../bookings/presentation/pages/bookings_page.dart';
 import '../../../offers/presentation/pages/offers_page.dart';

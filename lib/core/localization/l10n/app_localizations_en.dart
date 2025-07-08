@@ -198,6 +198,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeViewAll => 'View All';
 
   @override
+  String hotelsInProvince(String province) {
+    return 'Hotels in $province';
+  }
+
+  @override
+  String get clearButton => 'Clear';
+
+  @override
+  String get noHotelsFound => 'No hotels found in this province';
+
+  @override
   String get bookingsTitle => 'My Bookings';
 
   @override

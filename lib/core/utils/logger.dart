@@ -26,7 +26,8 @@ class AppLogger {
           lineLength: 80,
           colors: true,
           printEmojis: true,
-          printTime: true,
+          // printTime is deprecated, use dateTimeFormat instead
+          dateTimeFormat: DateTimeFormat.dateAndTime,
         ),
       ),
       // Only enable debug logging in debug mode
